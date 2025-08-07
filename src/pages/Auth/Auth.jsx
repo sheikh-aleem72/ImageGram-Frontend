@@ -2,7 +2,7 @@
 export const Auth = ({ children }) => {
   return (
     <>
-      <div className="h-[100vh] w-full flex items-center justify-center bg-pink-200">
+      <div className="h-[100vh] w-full flex items-center justify-center bg-imagegram-bg">
         {children}
       </div>
     </>

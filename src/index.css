@@ -41,6 +41,16 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --color-imagegram-bg: #F9FAFB;
+  --color-imagegram-primary: #3B82F6;
+  --color-imagegram-accent: #60A5FA;
+  --color-imagegram-text: #111827;
+  --color-imagegram-subtext: #6B7280;
+  --color-imagegram-border: #E5E7EB;
+  --color-imagegram-white: #FFFFFF;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

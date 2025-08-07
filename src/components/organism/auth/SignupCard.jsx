@@ -22,10 +22,16 @@ export const SignupCard = ({
 }) => {
   return (
     <>
-      <Card className="h-auto w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px]">
+      <Card className="h-auto w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] border border-border rounded-lg p-6 shadow-md ">
         <CardHeader>
-          <CardTitle className={"text-xl sm:text-2xl"}>Sign up</CardTitle>
-          <CardDescription>Sign up to create your account</CardDescription>
+          <CardTitle
+            className={"text-imagegram-text text-2xl sm:text-3xl font-bold"}
+          >
+            Sign up
+          </CardTitle>
+          <CardDescription className={"text-imagegram-subtext"}>
+            Sign up to create your account
+          </CardDescription>
           {validationError && (
             <div className="bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
               <TriangleAlert className="size-5" />
@@ -105,7 +111,7 @@ export const SignupCard = ({
 
             <Button
               size="lg"
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer bg-imagegram-primary text-white py-2 rounded hover:bg-accent hover:text-imagegram-text transition"
               type="submit"
               disabled={isPending}
             >
@@ -113,7 +119,7 @@ export const SignupCard = ({
             </Button>
           </form>
           <Separator className="my-5" />
-          <p className="text-muted-foreground mt-4">
+          <p className="text-imagegram-subtext mt-4">
             Already have an account ?{" "}
             <span
               className="text-sky-600 hover:underline cursor-pointer"
