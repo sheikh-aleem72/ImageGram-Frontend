@@ -7,30 +7,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@radix-ui/react-separator";
 import { LucideLoader2, TriangleAlert } from "lucide-react";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export const SignupCard = ({
-  isPending,
+function SigninCard({
+  validationError,
   isSuccess,
   error,
-  signupForm,
-  setSignupForm,
-  onSignupFormSubmit,
-  validationError,
-}) => {
+  onSigninFormSubmit,
+  signinForm,
+  setSigninForm,
+  isPending,
+}) {
   const navigate = useNavigate();
   return (
     <>
       <Card className="w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] border border-border rounded-lg p-8 sm:p-10 shadow-md">
         <CardHeader className="space-y-2">
           <CardTitle className="text-imagegram-text text-2xl sm:text-3xl font-bold text-center">
-            Sign Up
+            Sign In
           </CardTitle>
           <CardDescription className="text-imagegram-subtext text-center">
-            Create a new account to get started
+            Access your account securely
           </CardDescription>
 
           {validationError && (
@@ -51,7 +51,7 @@ export const SignupCard = ({
             <div className="bg-primary/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-primary">
               <FaCheck className="size-5" />
               <p>
-                Successfully signed up. Redirecting...
+                Successfully signed in. Redirecting...
                 <LucideLoader2 className="animate-spin inline ml-2" />
               </p>
             </div>
@@ -59,27 +59,7 @@ export const SignupCard = ({
         </CardHeader>
 
         <CardContent className="mt-2">
-          <form onSubmit={onSignupFormSubmit} className="space-y-4">
-            <div className="flex flex-col space-y-1.5">
-              <label
-                htmlFor="username"
-                className="text-sm font-medium text-imagegram-subtext"
-              >
-                Username
-              </label>
-              <Input
-                id="username"
-                required
-                placeholder="Enter your username"
-                type="text"
-                onChange={(e) =>
-                  setSignupForm({ ...signupForm, username: e.target.value })
-                }
-                value={signupForm.username}
-                disabled={isPending}
-              />
-            </div>
-
+          <form className="space-y-6" onSubmit={onSigninFormSubmit}>
             <div className="flex flex-col space-y-1.5">
               <label
                 htmlFor="email"
@@ -89,13 +69,13 @@ export const SignupCard = ({
               </label>
               <Input
                 id="email"
+                type="email"
                 required
                 placeholder="you@example.com"
-                type="email"
                 onChange={(e) =>
-                  setSignupForm({ ...signupForm, email: e.target.value })
+                  setSigninForm({ ...signinForm, email: e.target.value })
                 }
-                value={signupForm.email}
+                value={signinForm?.email}
                 disabled={isPending}
               />
             </div>
@@ -109,63 +89,42 @@ export const SignupCard = ({
               </label>
               <Input
                 id="password"
+                type="password"
                 required
                 placeholder="Enter your password"
-                type="password"
                 onChange={(e) =>
-                  setSignupForm({ ...signupForm, password: e.target.value })
+                  setSigninForm({ ...signinForm, password: e.target.value })
                 }
-                value={signupForm.password}
-                disabled={isPending}
-              />
-            </div>
-
-            <div className="flex flex-col space-y-1.5">
-              <label
-                htmlFor="confirmPassword"
-                className="text-sm font-medium text-imagegram-subtext"
-              >
-                Confirm Password
-              </label>
-              <Input
-                id="confirmPassword"
-                required
-                placeholder="Re-enter your password"
-                type="password"
-                onChange={(e) =>
-                  setSignupForm({
-                    ...signupForm,
-                    confirmPassword: e.target.value,
-                  })
-                }
-                value={signupForm.confirmPassword}
+                value={signinForm?.password}
                 disabled={isPending}
               />
             </div>
 
             <Button
+              className="w-full cursor-pointer bg-imagegram-primary text-white py-2 rounded hover:bg-accent hover:text-imagegram-text transition"
               size="lg"
-              className="w-full bg-imagegram-primary text-white py-2 rounded hover:bg-accent hover:text-imagegram-text transition"
-              type="submit"
               disabled={isPending}
+              type="submit"
             >
-              Continue
+              Sign In
             </Button>
           </form>
 
           <Separator className="my-6" />
 
           <p className="text-muted-foreground text-sm text-center">
-            Already have an account?{" "}
+            Don’t have an account?{" "}
             <span
               className="text-sky-600 hover:underline cursor-pointer"
-              onClick={() => navigate("/auth/signin")}
+              onClick={() => navigate("/auth/signup")}
             >
-              Sign In
+              Sign Up
             </span>
           </p>
         </CardContent>
       </Card>
     </>
   );
-};
+}
+
+export default SigninCard;

@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Auth } from "./pages/Auth/auth";
 import { SignupContainer } from "./components/organism/auth/SignupContainer";
+import { SigninContainer } from "./components/organism/auth/SigninContainer";
 
 export const AppRoutes = () => {
   return (
@@ -12,6 +13,14 @@ export const AppRoutes = () => {
           element={
             <Auth>
               <SignupContainer />
+            </Auth>
+          }
+        />
+        <Route
+          path="/auth/signin"
+          element={
+            <Auth>
+              <SigninContainer />
             </Auth>
           }
         />
