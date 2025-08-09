@@ -24,7 +24,7 @@ function SigninCard({
   const navigate = useNavigate();
   return (
     <>
-      <Card className="w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] border border-border rounded-lg p-8 sm:p-10 shadow-md">
+      <Card className="w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] border border-border rounded-lg sm:p-10 shadow-md">
         <CardHeader className="space-y-2">
           <CardTitle className="text-imagegram-text text-2xl sm:text-3xl font-bold text-center">
             Sign In

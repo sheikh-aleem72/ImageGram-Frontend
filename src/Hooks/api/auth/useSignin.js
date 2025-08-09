@@ -2,6 +2,7 @@ import { signinRequest } from "@/api/auth";
 import { setAuth } from "@/features/slices/authSlice";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 export const useSignin = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ export const useSignin = () => {
 
       localStorage.setItem("user", userObject);
       localStorage.setItem("token", token);
+
+      toast("Signed in successfully!", {
+        description: "You will be redirected to home page in a moment",
+      });
     },
 
     onError: (error) => {
