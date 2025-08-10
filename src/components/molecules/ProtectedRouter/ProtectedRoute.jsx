@@ -28,7 +28,7 @@ export const ProtectedRoute = ({ children }) => {
   }, [token, dispatch]);
 
   if (!token) {
-    return <Navigate to="/auth/signin" replace />;
+    return <Navigate to="/auth/signin" />;
   }
 
   return children;

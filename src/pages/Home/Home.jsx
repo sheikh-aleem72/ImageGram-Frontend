@@ -7,7 +7,7 @@ export const Home = ({}) => {
   }, 3000);
   return (
     <>
-      <div className="bg-imagegram-bg h-screen w-auto flex items-center justify-center text-2xl">
+      <div className="bg-imagegram-bg h-[100vh] w-auto flex items-center justify-center text-2xl">
         Hey, Welcome Home!
       </div>
     </>

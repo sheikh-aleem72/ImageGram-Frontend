@@ -4,6 +4,9 @@ import { SignupContainer } from "./components/organism/auth/SignupContainer";
 import { SigninContainer } from "./components/organism/auth/SigninContainer";
 import { ProtectedRoute } from "./components/molecules/ProtectedRouter/ProtectedRoute";
 import { Home } from "./pages/Home/Home";
+import { Menubar } from "./components/organism/Menubar/Menubar";
+import { Navbar } from "./components/organism/Navbar/Navbar";
+import { Layout } from "./components/organism/Layout/Layout";
 
 export const AppRoutes = () => {
   return (
@@ -31,7 +34,9 @@ export const AppRoutes = () => {
           path="/home"
           element={
             <ProtectedRoute>
-              <Home />
+              <Layout>
+                <Home />
+              </Layout>
             </ProtectedRoute>
           }
         />

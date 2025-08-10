@@ -1,0 +1,38 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LucideLogOut, LucideSettings2 } from "lucide-react";
+
+export const OptionButton = ({ Icon, label, showLabelOnHover }) => {
+  return (
+    <>
+      <div className="flex items-center gap-x-4 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-400 w-full cursor-pointer">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="outline-none relative">
+            <Icon className="w-6 h-6" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>
+              <LucideSettings2 className="size-4 mr-2 h-10" />
+              Setting
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <LucideLogOut className="size-4 mr-2 h-10" />
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {showLabelOnHover && (
+          <span className="hidden group-hover:inline text-base font-medium">
+            {label}
+          </span>
+        )}
+      </div>
+    </>
+  );
+};
