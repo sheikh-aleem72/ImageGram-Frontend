@@ -1,8 +1,7 @@
 import { MenuItem } from "@/components/atoms/MenuItem/MenuItem";
 import { OptionButton } from "@/components/atoms/OptionButton/OptionButton";
+import Imagegram_logo from "@/assets/Images/Imagegram_logo.png";
 import {
-  ApertureIcon,
-  CircleUserIcon,
   CompassIcon,
   HeartIcon,
   HomeIcon,
@@ -25,7 +24,7 @@ export const Menubar = () => {
         <MenuItem Icon={SearchIcon} route={"/search"} />
         <MenuItem Icon={SquarePlusIcon} route={"/create"} />
         <MenuItem Icon={HeartIcon} route={"/notification"} />
-        <MenuItem image={`${user?.profilePicture}`} route={"/profile"} />
+        <MenuItem image={`${user?.profilePicture}`} route={`/${user?.id}`} />
       </div>
 
       {/* Desktop Sidebar with Hover Expand */}
@@ -37,7 +36,7 @@ export const Menubar = () => {
           {/* Top section */}
           <div className="flex flex-col items-start gap-y-6 pl-4">
             <MenuItem
-              Icon={ApertureIcon}
+              image={Imagegram_logo}
               label={"ImageGram"}
               route={"/home"}
               showLabelOnHover
@@ -83,7 +82,7 @@ export const Menubar = () => {
             <MenuItem
               image={`${user?.profilePicture}`}
               label={`${user?.username}`}
-              route={`/userid`}
+              route={`/${user?.id}`}
               showLabelOnHover
             />
           </div>
