@@ -14,7 +14,6 @@ export const signupRequest = async ({ username, email, password }) => {
     if (error.code === "ERR_NETWORK") {
       throw error;
     }
-    throw error.response.data;
   }
 };
 

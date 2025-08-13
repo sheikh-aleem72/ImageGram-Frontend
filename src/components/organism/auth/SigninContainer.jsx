@@ -33,12 +33,17 @@ export const SigninContainer = ({}) => {
   }
 
   useEffect(() => {
+    if (error) {
+      if (error.status === 403) {
+        navigate("/auth/signin");
+      }
+    }
     if (isSuccess) {
       setTimeout(() => {
         navigate("/home");
       }, 3000);
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccess, navigate, error]);
 
   return (
     <>
