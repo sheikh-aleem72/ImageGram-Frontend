@@ -11,7 +11,7 @@ import {
   SquareUserIcon,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 
 export const ProfileLayout = () => {
   const { userId } = useParams();
@@ -73,9 +73,11 @@ export const ProfileLayout = () => {
               {userDetails?.username ? userDetails?.username : "username"}
             </h2>
             <div className="md:flex gap-4 md:justify-normal justify-center hidden">
-              <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
-                Edit profile
-              </Button>
+              <Link to={`/${userId}/accounts/edit`}>
+                <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
+                  Edit profile
+                </Button>
+              </Link>
               <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
                 View archive
               </Button>

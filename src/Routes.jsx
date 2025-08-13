@@ -9,6 +9,8 @@ import { ProfileLayout } from "./pages/Profile/Profile";
 import BookmarkTab from "./components/organism/BookmarkTab/BookmarkTab";
 import TagTab from "./components/organism/TagTab/TagTab";
 import { GridTab } from "./components/organism/GridTab/GridTab";
+import { EditProfile } from "./components/organism/EditProfile/EditProfile";
+import NotFound from "./components/organism/NotFound/NotFound";
 
 export const AppRoutes = () => {
   return (
@@ -57,6 +59,19 @@ export const AppRoutes = () => {
           <Route path="/:userId/bookmark" element={<BookmarkTab />} />
           <Route path="/:userId/tagged" element={<TagTab />} />
         </Route>
+
+        <Route
+          path="/:userId/accounts/edit"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <EditProfile />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

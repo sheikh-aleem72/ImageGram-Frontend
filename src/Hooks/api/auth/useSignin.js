@@ -22,7 +22,7 @@ export const useSignin = () => {
 
       dispatch(
         setAuth({
-          user: userObject,
+          user: response.data,
           token: response.data.token,
           isLoading: false,
         })

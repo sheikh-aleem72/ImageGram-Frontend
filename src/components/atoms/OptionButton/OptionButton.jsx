@@ -5,9 +5,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logout } from "@/features/slices/authSlice";
 import { LucideLogOut, LucideSettings2 } from "lucide-react";
+import { useDispatch } from "react-redux";
 
 export const OptionButton = ({ Icon, label, showLabelOnHover }) => {
+  const dispatch = useDispatch();
+
+  function handleClick() {
+    dispatch(logout());
+  }
   return (
     <>
       <div className="flex items-center gap-x-4 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-lg transition-all duration-400 w-full cursor-pointer">
@@ -16,11 +23,11 @@ export const OptionButton = ({ Icon, label, showLabelOnHover }) => {
             <Icon className="w-6 h-6" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleClick}>
               <LucideSettings2 className="size-4 mr-2 h-10" />
               Setting
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleClick}>
               <LucideLogOut className="size-4 mr-2 h-10" />
               Logout
             </DropdownMenuItem>
