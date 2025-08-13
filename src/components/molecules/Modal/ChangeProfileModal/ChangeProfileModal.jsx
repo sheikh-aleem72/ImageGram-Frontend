@@ -7,6 +7,7 @@ import {
 import axiosInstance from "@/config/axios";
 import { MODAL_KEYS } from "@/constants/modalKeys";
 import { closeModal } from "@/features/slices/modalSlice";
+import { useRemoveProfilePicture } from "@/Hooks/api/user/useRemoveProfilePicture";
 import { useUpdateProfilePicture } from "@/Hooks/api/user/useUpdateProfilePicture";
 import { useGetPresignedUrl } from "@/Hooks/cloudinary/useGetPresignedUrl";
 import { useUploadImageToCloudinary } from "@/Hooks/cloudinary/useUploadImageToCloudinary";
@@ -14,7 +15,7 @@ import { Loader2, XIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export const ChangeProfileModal = () => {
+export const ChangeProfileModal = ({}) => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -29,6 +30,7 @@ export const ChangeProfileModal = () => {
   const { uploadImageToCloudinarypresignedUrlMutation } =
     useUploadImageToCloudinary();
   const { updateprofilepictureMutation } = useUpdateProfilePicture();
+  const { removeprofilepictureMutation } = useRemoveProfilePicture();
 
   function handleClose() {
     setImage(null);
@@ -95,6 +97,15 @@ export const ChangeProfileModal = () => {
       setImage(null);
       setImageUrl(null);
     }
+  }
+
+  async function handleRemovePhoto() {
+    try {
+      const response = await removeprofilepictureMutation();
+    } catch (error) {
+      throw error;
+    }
+    handleClose();
   }
 
   return (
@@ -166,7 +177,7 @@ export const ChangeProfileModal = () => {
           {/* Remove */}
           <button
             className="py-3 text-red-500 font-medium cursor-pointer hover:bg-gray-50"
-            onClick={() => console.log("Remove Current Photo")}
+            onClick={handleRemovePhoto}
           >
             Remove Current Photo
           </button>

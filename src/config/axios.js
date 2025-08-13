@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
 
       // Clear local storage & redux
       store.dispatch(logout());
-      localStorage.removeItem("userObject");
+      localStorage.removeItem("user");
       localStorage.removeItem("token");
 
       // Redirect
