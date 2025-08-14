@@ -59,3 +59,22 @@ export const removeProfilePictureRequest = async ({ token }) => {
     throw error;
   }
 };
+
+export const updateUserDetailsRequest = async ({ token, data }) => {
+  try {
+    const response = await axiosInstance.post(
+      "/users/update",
+      { data },
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+
+    return response?.data;
+  } catch (error) {
+    console.log("Error while updating user details: ", error);
+    throw error;
+  }
+};

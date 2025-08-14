@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MODAL_KEYS } from "@/constants/modalKeys";
+import { setDetails } from "@/features/slices/detailSlice";
 import { openModal } from "@/features/slices/modalSlice";
 import { useGetUserDetails } from "@/Hooks/api/user/useGetUserDetails";
 import {
@@ -10,6 +11,7 @@ import {
   PlusIcon,
   SquareUserIcon,
 } from "lucide-react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 
@@ -24,6 +26,12 @@ export const ProfileLayout = () => {
 
   const { isFetching, isSuccess, error, userDetails } =
     useGetUserDetails(userId);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setDetails({ details: userDetails }));
+    }
+  }, [isSuccess, userDetails]);
 
   // Implement private account logic
   /**
@@ -85,7 +93,7 @@ export const ProfileLayout = () => {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-12 mt-4">
+          <div className="flex gap-12 mt-4 justify-center">
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">
               <span className="font-semibold md:text-[1.5rem]">0</span>
               <p className=" text-[1.2rem]">Posts</p>
@@ -107,7 +115,7 @@ export const ProfileLayout = () => {
           {/* Bio */}
           <div className="mt-4">
             <p className="font-semibold">{userDetails?.name}</p>
-            <p className="font-semibold">{userDetails?.bio}</p>
+            <pre className="x leading-4">{userDetails?.bio}</pre>
 
             <a href="" className="text-blue-500 hover:underline">
               {userDetails?.links}
