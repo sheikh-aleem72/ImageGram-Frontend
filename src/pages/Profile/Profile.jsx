@@ -1,3 +1,4 @@
+import { FollowButton } from "@/components/atoms/FollowButton/FollowButton";
 import { Button } from "@/components/ui/button";
 import { MODAL_KEYS } from "@/constants/modalKeys";
 import { setDetails } from "@/features/slices/detailSlice";
@@ -8,6 +9,7 @@ import {
   CameraIcon,
   GridIcon,
   Loader2,
+  LockIcon,
   PlusIcon,
   SquareUserIcon,
 } from "lucide-react";
@@ -42,16 +44,17 @@ export const ProfileLayout = () => {
    * If true, then show profile to current user
    * Else, show account is private
    */
+  const isPrivate = userDetails?.accountPrivacy == "private";
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 mt-14">
+    <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 mt-14 md:ml-40 ">
       {/* Top Section */}
       <div className="flex flex-col md:flex-row md:items-center md:gap-12">
         {/* Profile Image */}
         <button
           className="cursor-pointer"
           onClick={() => {
-            if (currentUser) {
+            if (isCurrentUser) {
               dispatch(
                 openModal({ modalName: MODAL_KEYS.CHANGE_PROFILE_PICTURE })
               );
@@ -80,32 +83,40 @@ export const ProfileLayout = () => {
             <h2 className="text-xl md:text-2xl font-semibold text-center">
               {userDetails?.username ? userDetails?.username : "username"}
             </h2>
-            <div className="md:flex gap-4 md:justify-normal justify-center hidden">
-              <Link to={`/${userId}/accounts/edit`}>
+            {isCurrentUser ? (
+              <div className="md:flex gap-4 md:justify-normal justify-center hidden">
+                <Link to={`/${userId}/accounts/edit`}>
+                  <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
+                    Edit profile
+                  </Button>
+                </Link>
                 <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
-                  Edit profile
+                  View archive
                 </Button>
-              </Link>
-              <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
-                View archive
-              </Button>
-            </div>
+              </div>
+            ) : (
+              <FollowButton userId={userDetails?._id} />
+            )}
           </div>
 
           {/* Stats */}
-          <div className="flex gap-12 mt-4 justify-center">
+          <div className="flex gap-12 mt-4 md:justify-normal justify-center">
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">
               <span className="font-semibold md:text-[1.5rem]">0</span>
               <p className=" text-[1.2rem]">Posts</p>
             </div>
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">
-              <span className="font-semibold md:text-[1.5rem]">0</span>
+              <span className="font-semibold md:text-[1.5rem]">
+                {userDetails?.followersCount ?? 0}
+              </span>
               <button className="cursor-pointer text-[1.2rem]">
                 Followers
               </button>
             </div>
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">
-              <span className="font-semibold md:text-[1.5rem]">0</span>
+              <span className="font-semibold md:text-[1.5rem]">
+                {userDetails?.followingCount ?? 0}
+              </span>
               <button className="cursor-pointer text-[1.2rem]">
                 Following
               </button>
@@ -122,16 +133,18 @@ export const ProfileLayout = () => {
             </a>
           </div>
 
-          <div className="mt-4">
-            <div className="flex gap-4 md:hidden">
-              <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
-                Edit profile
-              </Button>
-              <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
-                View archive
-              </Button>
+          {isCurrentUser && (
+            <div className="mt-4">
+              <div className="flex gap-4 md:hidden">
+                <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
+                  Edit profile
+                </Button>
+                <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
+                  View archive
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -147,27 +160,46 @@ export const ProfileLayout = () => {
         </div>
 
         {/* Tabs */}
-        <div className="border-b-2 border-gray-300 mt-8 flex justify-center gap-10 md:gap-40 uppercase text-sm font-semibold text-gray-500">
-          <button className="py-3 cursor-pointer">
-            <NavLink to={`/${userId}`} end>
-              <GridIcon className="md:w-10 md: h-6 w-6" />
-            </NavLink>
-          </button>
-          <button className="py-3 cursor-pointer">
-            <NavLink to={`/${userId}/bookmark`}>
-              <BookmarkIcon className="md:w-10 md: h-6 w-6" />
-            </NavLink>
-          </button>
-          <button className="py-3 cursor-pointer">
-            <NavLink to={`/${userId}/tagged`}>
-              <SquareUserIcon className="md:w-10 md: h- w-6" />
-            </NavLink>
-          </button>
-        </div>
+        {isPrivate ? (
+          <div className="h-[60vh] flex justify-center items-center flex-col gap-2 border-t-2 mt-2">
+            <div className="rounded-full border-2 p-4 border-imagegram-text">
+              <LockIcon className="md:w-10 md:h-10 h-6 w-6" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold">This account is private</h1>
+            </div>
+            <div>
+              <p className="text-center">Follow to see their photos</p>
+            </div>
+            <div className="">
+              <FollowButton userId={userDetails?._id} />
+            </div>
+          </div>
+        ) : (
+          <div className="border-b-2 border-gray-300 mt-8 flex justify-center gap-10 md:gap-40 uppercase text-sm font-semibold text-gray-500">
+            <button className="py-3 cursor-pointer">
+              <NavLink to={`/${userId}`} end>
+                <GridIcon className="md:w-10 md: h-6 w-6" />
+              </NavLink>
+            </button>
+            <button className="py-3 cursor-pointer">
+              <NavLink to={`/${userId}/bookmark`}>
+                <BookmarkIcon className="md:w-10 md: h-6 w-6" />
+              </NavLink>
+            </button>
+            <button className="py-3 cursor-pointer">
+              <NavLink to={`/${userId}/tagged`}>
+                <SquareUserIcon className="md:w-10 md: h- w-6" />
+              </NavLink>
+            </button>
+          </div>
+        )}
 
-        <div className="h-[60vh] flex justify-center items-center flex-col gap-4">
-          <Outlet />
-        </div>
+        {!isPrivate && (
+          <div className="h-[60vh] flex justify-center items-center flex-col gap-4">
+            <Outlet />
+          </div>
+        )}
       </div>
     </div>
   );

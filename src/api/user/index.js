@@ -10,6 +10,8 @@ export const getUserDetailsRequest = async ({ userId, token }) => {
       }
     );
 
+    console.log("user details: ", response);
+
     return response.data.data;
   } catch (error) {
     console.log("Error from get user detail request", error);
@@ -75,6 +77,20 @@ export const updateUserDetailsRequest = async ({ token, data }) => {
     return response?.data;
   } catch (error) {
     console.log("Error while updating user details: ", error);
+    throw error;
+  }
+};
+
+export const getAllUserRequest = async ({ token }) => {
+  try {
+    const response = await axios.get("/users/all-users", {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log("Error from get all user request!", error);
     throw error;
   }
 };
