@@ -16,7 +16,7 @@ export const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to={"/auth/signup"} />} />
+        <Route path="/" element={<Navigate to={"/auth/signin"} />} />
         <Route
           path="/auth/signup"
           element={

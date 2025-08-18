@@ -29,12 +29,6 @@ export const ProfileLayout = () => {
   const { isFetching, isSuccess, error, userDetails } =
     useGetUserDetails(userId);
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setDetails({ details: userDetails }));
-    }
-  }, [isSuccess, userDetails]);
-
   // Implement private account logic
   /**
    * If the account of target user is public then show the profile
@@ -45,6 +39,12 @@ export const ProfileLayout = () => {
    * Else, show account is private
    */
   const isPrivate = userDetails?.accountPrivacy == "private";
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setDetails({ details: userDetails }));
+    }
+  }, [isSuccess, userDetails]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 mt-14 md:ml-40 ">
@@ -86,16 +86,19 @@ export const ProfileLayout = () => {
             {isCurrentUser ? (
               <div className="md:flex gap-4 md:justify-normal justify-center hidden">
                 <Link to={`/${userId}/accounts/edit`}>
-                  <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
+                  <Button className="bg-gray-100 text-black hover:bg-gray-200 p-4 text-xl  cursor-pointer">
                     Edit profile
                   </Button>
                 </Link>
-                <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm cursor-pointer">
+                <Button className="bg-gray-100 text-black hover:bg-gray-200 p-4 text-xl cursor-pointer">
                   View archive
                 </Button>
               </div>
             ) : (
-              <FollowButton userId={userDetails?._id} />
+              <FollowButton
+                userId={userDetails?._id}
+                privacy={userDetails?.accountPrivacy}
+              />
             )}
           </div>
 
@@ -150,18 +153,20 @@ export const ProfileLayout = () => {
 
       <div>
         {/* Highlights */}
-        <div className="flex gap-6 mt-10 overflow-x-auto scrollbar-hide">
-          <div className="flex flex-col items-center  ">
-            <span className="text-imagegram-subtext flex justify-center items-center text-5xl bg-imagegram-bg w-15 h-15 border-2 rounded-full">
-              <PlusIcon />
-            </span>
-            <p className="text-sm mt-1 truncate">new</p>
+        {isCurrentUser && (
+          <div className="flex gap-6 mt-10 overflow-x-auto scrollbar-hide">
+            <div className="flex flex-col items-center  ">
+              <span className="text-imagegram-subtext flex justify-center items-center text-5xl bg-imagegram-bg w-15 h-15 border-2 rounded-full">
+                <PlusIcon />
+              </span>
+              <p className="text-sm mt-1 truncate">new</p>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Tabs */}
         {isPrivate ? (
-          <div className="h-[60vh] flex justify-center items-center flex-col gap-2 border-t-2 mt-2">
+          <div className="h-[60vh] flex justify-center items-center flex-col gap-2 border-t-2 mt-6">
             <div className="rounded-full border-2 p-4 border-imagegram-text">
               <LockIcon className="md:w-10 md:h-10 h-6 w-6" />
             </div>

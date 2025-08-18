@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export const Home = ({}) => {
   const socket = useSelector((state) => state.socket.instance);
+  const currentUserId = useSelector((state) => state?.auth?.user?.id);
   setTimeout(() => {
     console.log("Connection has been built: ", socket);
   }, 3000);
@@ -14,20 +15,26 @@ export const Home = ({}) => {
     <>
       <div className="bg-imagegram-bg h-[100vh] w-auto flex items-center justify-center text-2xl">
         <div className="w-[468px] h-[50vh] p-4 flex flex-col bg-imagegram-accent gap-2 overflow-auto">
-          {usersData?.data?.map((user) => {
-            return (
-              <Link to={`/${user?._id}`}>
-                <UserCard
-                  key={user?._id}
-                  userId={user?._id}
-                  username={user?.username}
-                  profilePicture={user?.profilePicture}
-                  name={user?.name}
-                  position={"vertical"}
-                />
-              </Link>
-            );
-          })}
+          {usersData?.data
+            ?.filter((user) => {
+              if (user?._id != currentUserId) {
+                return user;
+              }
+            })
+            .map((user) => {
+              return (
+                <Link to={`/${user?._id}`}>
+                  <UserCard
+                    key={user?._id}
+                    userId={user?._id}
+                    username={user?.username}
+                    profilePicture={user?.profilePicture}
+                    name={user?.name}
+                    position={"vertical"}
+                  />
+                </Link>
+              );
+            })}
         </div>
       </div>
     </>

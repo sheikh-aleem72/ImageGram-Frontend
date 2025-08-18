@@ -14,6 +14,7 @@ export const useGetAllUser = () => {
     queryFn: () => getAllUserRequest({ token }),
     queryKey: ["get-all-users"],
     staleTime: 10000,
+    enabled: !!token,
   });
 
   return {

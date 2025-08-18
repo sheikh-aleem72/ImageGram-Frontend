@@ -14,6 +14,7 @@ export const useGetUserDetails = (userId) => {
     queryFn: () => getUserDetailsRequest({ userId, token }),
     queryKey: [`getUserDetails-${userId}`],
     staleTime: 10000,
+    enabled: !!userId && !!token,
   });
 
   return {
