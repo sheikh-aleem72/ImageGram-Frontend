@@ -31,8 +31,10 @@ export const FollowButton = ({ userId, privacy }) => {
 
   let value = currentStatus === "not_following" ? "Follow" : currentStatus;
 
-  async function handleClick() {
+  async function handleClick(e) {
     try {
+      e.preventDefault();
+      e.stopPropagation(); // Event bubbling or propagation stop clicks from propagating to parent
       setLoading(true);
 
       if (currentStatus === "not_following") {

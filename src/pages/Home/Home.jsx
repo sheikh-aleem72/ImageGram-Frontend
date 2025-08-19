@@ -13,8 +13,8 @@ export const Home = ({}) => {
   const { usersData } = useGetAllUser();
   return (
     <>
-      <div className="bg-imagegram-bg h-[100vh] w-auto flex items-center justify-center text-2xl">
-        <div className="w-[468px] h-[50vh] p-4 flex flex-col bg-imagegram-accent gap-2 overflow-auto">
+      <div className="bg-imagegram-bg h-[100vh] w-auto flex items-center justify-center text-2xl px-8">
+        <div className="w-full h-auto p-4 flex gap-3 overflow-auto md:ml-20">
           {usersData?.data
             ?.filter((user) => {
               if (user?._id != currentUserId) {
