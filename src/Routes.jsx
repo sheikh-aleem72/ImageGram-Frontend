@@ -11,6 +11,9 @@ import TagTab from "./components/organism/TagTab/TagTab";
 import { GridTab } from "./components/organism/GridTab/GridTab";
 import { EditProfile } from "./components/organism/EditProfile/EditProfile";
 import NotFound from "./components/organism/NotFound/NotFound";
+import { FollowersPage } from "./components/organism/FollowersPage/FollowersPage";
+import { FollowingPage } from "./components/organism/FollowingPage/FollowingPage";
+import { ResponsiveModalRoute } from "./components/organism/ResponsiveModalRoute/ResponsiveModalRoute";
 
 export const AppRoutes = () => {
   return (
@@ -56,9 +59,19 @@ export const AppRoutes = () => {
           }
         >
           <Route index element={<GridTab />} />
-          <Route path="/:userId/bookmark" element={<BookmarkTab />} />
-          <Route path="/:userId/tagged" element={<TagTab />} />
+          <Route path="bookmark" element={<BookmarkTab />} />
+          <Route path="tagged" element={<TagTab />} />
         </Route>
+
+        {/* Followers / Following outside ProfileLayout outlet */}
+        <Route
+          path="/:userId/followers"
+          element={<ResponsiveModalRoute element={FollowersPage} />}
+        />
+        <Route
+          path="/:userId/following"
+          element={<ResponsiveModalRoute element={FollowingPage} />}
+        />
 
         <Route
           path="/:userId/accounts/edit"
@@ -70,7 +83,6 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
-
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </>

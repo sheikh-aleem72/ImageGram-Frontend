@@ -15,7 +15,13 @@ import {
 } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
 export const ProfileLayout = () => {
   const { userId } = useParams();
@@ -25,6 +31,8 @@ export const ProfileLayout = () => {
   const currentUser = useSelector((state) => state?.auth?.user.id);
 
   const isCurrentUser = currentUser == userId;
+
+  const navigate = useNavigate();
 
   const { isFetching, isSuccess, error, userDetails } =
     useGetUserDetails(userId);
@@ -112,7 +120,10 @@ export const ProfileLayout = () => {
               <span className="font-semibold md:text-[1.5rem]">
                 {userDetails?.followersCount ?? 0}
               </span>
-              <button className="cursor-pointer text-[1.2rem]">
+              <button
+                className="cursor-pointer text-[1.2rem]"
+                onClick={() => navigate(`/${userId}/followers`)}
+              >
                 Followers
               </button>
             </div>
@@ -120,7 +131,10 @@ export const ProfileLayout = () => {
               <span className="font-semibold md:text-[1.5rem]">
                 {userDetails?.followingCount ?? 0}
               </span>
-              <button className="cursor-pointer text-[1.2rem]">
+              <button
+                className="cursor-pointer text-[1.2rem]"
+                onClick={() => navigate(`/${userId}/following`)}
+              >
                 Following
               </button>
             </div>

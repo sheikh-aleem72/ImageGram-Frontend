@@ -5,8 +5,11 @@ import { useState } from "react";
 import { useFollowUser } from "@/Hooks/follow/useFollowUser";
 import { useUnfollowUser } from "@/Hooks/follow/useUnfollowUser";
 import { useDeleteFollowRequest } from "@/Hooks/follow/useDeleteFollowRequest";
+import { useSelector } from "react-redux";
 
 export const FollowButton = ({ userId, privacy }) => {
+  const currentUserId = useSelector((state) => state?.auth?.user?.id);
+  if (currentUserId === userId) return;
   const { isPending, relationshipStatus, refetch } =
     useGetRelationshipStatus(userId);
   const { followUserMutation } = useFollowUser();

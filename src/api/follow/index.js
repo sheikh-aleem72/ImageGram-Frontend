@@ -78,3 +78,39 @@ export const deleteFollowRequest = async ({ token, requestId }) => {
     throw error;
   }
 };
+
+export const getFollowerRequest = async ({ token, targetUserId }) => {
+  try {
+    const response = await axiosInstance.get(
+      `/follow/followers/${targetUserId}`,
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+
+    return response?.data?.data;
+  } catch (error) {
+    console.log("Error in getFollowerRequest", error);
+    throw error;
+  }
+};
+
+export const getFollowingRequest = async ({ token, targetUserId }) => {
+  try {
+    const response = await axiosInstance.get(
+      `/follow/following/${targetUserId}`,
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+
+    return response?.data?.data;
+  } catch (error) {
+    console.log("Error in getFollowingRequest", error);
+    throw error;
+  }
+};
