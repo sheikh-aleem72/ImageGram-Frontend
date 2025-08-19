@@ -1,14 +1,17 @@
-import { Menubar } from "../Menubar/Menubar";
-import { Navbar } from "../Navbar/Navbar";
+import { Outlet } from "react-router-dom";
+import Menubar from "../Menubar/Menubar";
+import Navbar from "../Navbar/Navbar";
 
-export const Layout = ({ children }) => {
+const Layout = ({}) => {
   return (
     <>
       <div className="h-[100vh]">
         <Navbar />
-        {children}
+        <Outlet />
         <Menubar />
       </div>
     </>
   );
 };
+
+export default Layout;

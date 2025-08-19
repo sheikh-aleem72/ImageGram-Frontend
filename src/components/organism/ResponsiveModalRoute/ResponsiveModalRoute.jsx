@@ -1,7 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const ResponsiveModalRoute = ({ element: Element }) => {
+const ResponsiveModalRoute = ({ element: Element }) => {
   const isDesktop = useMediaQuery({ minWidth: 768 });
   const navigate = useNavigate();
 
@@ -18,3 +18,5 @@ export const ResponsiveModalRoute = ({ element: Element }) => {
   // On mobile → render as normal page
   return <Element isModal={false} />;
 };
+
+export default ResponsiveModalRoute;

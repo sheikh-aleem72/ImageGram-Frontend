@@ -8,7 +8,7 @@ import { useGetUserDetails } from "@/Hooks/api/user/useGetUserDetails";
 import { useUpdateUserDetails } from "@/Hooks/api/user/useUpdateUserDetails";
 import { toast } from "sonner";
 
-export const EditProfile = ({}) => {
+const EditProfile = ({}) => {
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -146,3 +146,5 @@ export const EditProfile = ({}) => {
     </form>
   );
 };
+
+export default EditProfile;

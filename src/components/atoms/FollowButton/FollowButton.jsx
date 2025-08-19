@@ -7,7 +7,7 @@ import { useUnfollowUser } from "@/Hooks/follow/useUnfollowUser";
 import { useDeleteFollowRequest } from "@/Hooks/follow/useDeleteFollowRequest";
 import { useSelector } from "react-redux";
 
-export const FollowButton = ({ userId, privacy }) => {
+const FollowButton = ({ userId, privacy }) => {
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
   if (currentUserId === userId) return;
   const { isPending, relationshipStatus, refetch } =
@@ -68,10 +68,12 @@ export const FollowButton = ({ userId, privacy }) => {
       onClick={handleClick}
       className={`${
         buttonType[currentStatus] ?? "bg-imagegram-primary"
-      } cursor-pointer text-xl rounded-sm p-4`}
+      } cursor-pointer text-lg rounded-sm p-3`}
       disabled={loading}
     >
       {loading || isPending ? <Loader2 className="animate-spin" /> : value}
     </Button>
   );
 };
+
+export default FollowButton;

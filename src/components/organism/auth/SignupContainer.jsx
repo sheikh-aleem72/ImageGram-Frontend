@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { SignupCard } from "./signupCard";
+import SignupCard from "./signupCard";
 import { useSignup } from "@/Hooks/api/auth/useSignup";
 import { useNavigate } from "react-router-dom";
 
-export const SignupContainer = ({}) => {
+const SignupContainer = ({}) => {
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState({
@@ -70,3 +70,5 @@ export const SignupContainer = ({}) => {
     </>
   );
 };
+
+export default SignupContainer;

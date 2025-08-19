@@ -1,5 +1,5 @@
-import { MenuItem } from "@/components/atoms/MenuItem/MenuItem";
-import { OptionButton } from "@/components/atoms/OptionButton/OptionButton";
+import MenuItem from "@/components/atoms/MenuItem/MenuItem";
+import OptionButton from "@/components/atoms/OptionButton/OptionButton";
 import Imagegram_logo from "@/assets/Images/Imagegram_logo.png";
 import {
   CompassIcon,
@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useSelector } from "react-redux";
 
-export const Menubar = () => {
+const Menubar = () => {
   const user = useSelector((state) => state?.auth?.user);
 
   return (
@@ -23,14 +23,14 @@ export const Menubar = () => {
         <MenuItem Icon={HomeIcon} route={"/home"} />
         <MenuItem Icon={SearchIcon} route={"/search"} />
         <MenuItem Icon={SquarePlusIcon} route={"/create"} />
-        <MenuItem Icon={HeartIcon} route={"/notification"} />
+        <MenuItem Icon={HeartIcon} route={"/notifications"} />
         <MenuItem image={`${user?.profilePicture}`} route={`/${user?.id}`} />
       </div>
 
       {/* Desktop Sidebar with Hover Expand */}
       <div
         className="hidden md:flex fixed left-0 top-0 h-screen bg-white border-r border-gray-200 transition-all duration-300 group z-50
-        w-[70px] hover:w-[240px] overflow-hidden"
+        w-[70px] overflow-hidden md:justify-center"
       >
         <div className="flex flex-col justify-between w-full py-5">
           {/* Top section */}
@@ -75,7 +75,7 @@ export const Menubar = () => {
             <MenuItem
               Icon={HeartIcon}
               label={"Notification"}
-              route={"/notification"}
+              route={"/notifications"}
               showLabelOnHover
             />
 
@@ -96,3 +96,5 @@ export const Menubar = () => {
     </>
   );
 };
+
+export default Menubar;

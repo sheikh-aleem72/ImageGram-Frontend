@@ -1,9 +1,11 @@
-import { ChangeProfileModal } from "../ChangeProfileModal/ChangeProfileModal";
+import ChangeProfileModal from "../ChangeProfileModal/ChangeProfileModal";
 
-export const ModalRoot = ({}) => {
+const ModalRoot = ({}) => {
   return (
     <>
       <ChangeProfileModal />
     </>
   );
 };
+
+export default ModalRoot;

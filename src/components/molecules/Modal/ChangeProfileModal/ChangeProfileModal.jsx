@@ -15,7 +15,7 @@ import { Loader2, XIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export const ChangeProfileModal = ({}) => {
+const ChangeProfileModal = ({}) => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -194,3 +194,5 @@ export const ChangeProfileModal = ({}) => {
     </Dialog>
   );
 };
+
+export default ChangeProfileModal;

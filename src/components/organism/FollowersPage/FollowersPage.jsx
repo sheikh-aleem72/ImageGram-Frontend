@@ -1,10 +1,10 @@
-import { UserCard } from "@/components/molecules/UserCard/UserCard";
+import UserCard from "@/components/molecules/UserCard/UserCard";
 import { useGetFollowers } from "@/Hooks/follow/useGetFollowers";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export const FollowersPage = ({ isModal, onClose }) => {
+const FollowersPage = ({ isModal, onClose }) => {
   const { userId } = useParams();
   const { isSuccess, isPending, FollowerList } = useGetFollowers(userId);
 
@@ -58,3 +58,5 @@ export const FollowersPage = ({ isModal, onClose }) => {
     </div>
   );
 };
+
+export default FollowersPage;

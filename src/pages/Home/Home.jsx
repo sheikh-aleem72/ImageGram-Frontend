@@ -1,9 +1,9 @@
-import { UserCard } from "@/components/molecules/UserCard/UserCard";
+import UserCard from "@/components/molecules/UserCard/UserCard";
 import { useGetAllUser } from "@/Hooks/api/user/useGetAllUser";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-export const Home = ({}) => {
+const Home = ({}) => {
   const socket = useSelector((state) => state.socket.instance);
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
   setTimeout(() => {
@@ -40,3 +40,5 @@ export const Home = ({}) => {
     </>
   );
 };
+
+export default Home;

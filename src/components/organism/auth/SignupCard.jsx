@@ -12,7 +12,7 @@ import { LucideLoader2, TriangleAlert } from "lucide-react";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export const SignupCard = ({
+const SignupCard = ({
   isPending,
   isSuccess,
   error,
@@ -169,3 +169,5 @@ export const SignupCard = ({
     </>
   );
 };
+
+export default SignupCard;

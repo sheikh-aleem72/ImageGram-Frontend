@@ -1,7 +1,7 @@
-import { FollowButton } from "@/components/atoms/FollowButton/FollowButton";
+import FollowButton from "@/components/atoms/FollowButton/FollowButton";
 import { Link } from "react-router-dom";
 
-export const UserCard = ({
+const UserCard = ({
   position = "horizontal", // default
   username,
   name,
@@ -53,3 +53,5 @@ export const UserCard = ({
     </Link>
   );
 };
+
+export default UserCard;

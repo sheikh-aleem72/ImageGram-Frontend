@@ -9,7 +9,7 @@ import { logout } from "@/features/slices/authSlice";
 import { LucideLogOut, LucideSettings2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 
-export const OptionButton = ({ Icon, label, showLabelOnHover }) => {
+const OptionButton = ({ Icon, label, showLabelOnHover }) => {
   const dispatch = useDispatch();
 
   function handleClick() {
@@ -43,3 +43,5 @@ export const OptionButton = ({ Icon, label, showLabelOnHover }) => {
     </>
   );
 };
+
+export default OptionButton;

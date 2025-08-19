@@ -1,7 +1,7 @@
-import { MenuItem } from "@/components/atoms/MenuItem/MenuItem";
+import MenuItem from "@/components/atoms/MenuItem/MenuItem";
 import { HeartIcon } from "lucide-react";
 
-export const Navbar = ({}) => {
+const Navbar = ({}) => {
   return (
     <>
       <div className="fixed top-0 w-full md:hidden h-70px bg-imagegram-bg flex justify-between items-center p-2">
@@ -15,3 +15,5 @@ export const Navbar = ({}) => {
     </>
   );
 };
+
+export default Navbar;

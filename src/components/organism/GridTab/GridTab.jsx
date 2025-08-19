@@ -1,6 +1,6 @@
 import { CameraIcon } from "lucide-react";
 
-export const GridTab = ({ userId }) => {
+const GridTab = ({ userId }) => {
   let posts = [];
 
   return (
@@ -39,3 +39,5 @@ export const GridTab = ({ userId }) => {
     </>
   );
 };
+
+export default GridTab;

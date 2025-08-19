@@ -1,4 +1,4 @@
-import { FollowButton } from "@/components/atoms/FollowButton/FollowButton";
+import FollowButton from "@/components/atoms/FollowButton/FollowButton";
 import { Button } from "@/components/ui/button";
 import { MODAL_KEYS } from "@/constants/modalKeys";
 import { setDetails } from "@/features/slices/detailSlice";
@@ -23,7 +23,7 @@ import {
   useParams,
 } from "react-router-dom";
 
-export const ProfileLayout = () => {
+const ProfileLayout = () => {
   const { userId } = useParams();
 
   const dispatch = useDispatch();
@@ -223,3 +223,5 @@ export const ProfileLayout = () => {
     </div>
   );
 };
+
+export default ProfileLayout;

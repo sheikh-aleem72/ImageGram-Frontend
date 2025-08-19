@@ -4,7 +4,7 @@ import { useSignin } from "@/Hooks/api/auth/useSignin";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
-export const SigninContainer = ({}) => {
+const SigninContainer = ({}) => {
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: "",
@@ -60,3 +60,5 @@ export const SigninContainer = ({}) => {
     </>
   );
 };
+
+export default SigninContainer;
