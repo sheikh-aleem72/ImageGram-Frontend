@@ -1,12 +1,43 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { XIcon } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  incrementNotificationsCount,
+  resetNotificationsCount,
+} from "@/features/slices/notificationsCountSlice";
+import { FixedSizeList as List } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
+import NotificationRow from "@/components/molecules/NotificationRow/NotificationRow";
+import { useFetchAllNotifications } from "@/Hooks/notification/useFetchAllNotifications";
 
 const NotificationPage = () => {
-  const navigate = useNavigate();
-  const isMobile = window.innerWidth < 768;
+  const socket = useSelector((state) => state?.socket?.instance);
+  const userId = useSelector((state) => state?.auth?.user?.id);
 
-  // Close modal on ESC (desktop only)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Track mobile layout
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Fetch notifications with infinite query (pagination)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useFetchAllNotifications();
+
+  // Flatten paginated notifications into a single array
+  const notifications = data
+    ? data.pages.flatMap((page) => page.notifications) // flatMap converts the map of array into single array e.g. {notification: [1,2], notification: [3,4]} -> [1,2,3,4]
+    : [];
+
+  // Handle responsive changes (mobile/desktop)
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ESC key closes modal (desktop only)
   useEffect(() => {
     if (isMobile) return;
     const handleEsc = (e) => e.key === "Escape" && navigate(-1);
@@ -14,17 +45,72 @@ const NotificationPage = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isMobile, navigate]);
 
+  // Listen for new notifications via socket
+  useEffect(() => {
+    if (!socket) return;
+    const handleNew = (notification) => {
+      // Prepend new notification to the flattened array
+      data?.pages[0]?.notifications.unshift(notification);
+    };
+    socket.on("notifications", handleNew);
+    return () => socket.off("notifications", handleNew);
+  }, [socket, data]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.emit("read-notifications", { userId });
+    dispatch(resetNotificationsCount());
+  }, []);
+
+  // Loader function for InfiniteLoader
+  const loadMoreNotifications = async () => {
+    if (!isFetchingNextPage && hasNextPage) {
+      await fetchNextPage();
+    }
+  };
+
+  // Check if item at index is loaded
+  const isItemLoaded = (index) => !hasNextPage || index < notifications.length;
+
+  // Render notification list with infinite loader and virtualization
+  const renderList = (
+    <InfiniteLoader
+      isItemLoaded={isItemLoaded}
+      itemCount={hasNextPage ? notifications.length + 1 : notifications.length}
+      loadMoreItems={loadMoreNotifications}
+    >
+      {({ onItemsRendered, ref }) => (
+        <List
+          height={600}
+          itemSize={60}
+          itemCount={
+            hasNextPage ? notifications.length + 1 : notifications.length
+          }
+          width="100%"
+          onItemsRendered={onItemsRendered}
+          itemData={{
+            notifications,
+            isItemLoaded,
+          }}
+          ref={ref}
+        >
+          {NotificationRow}
+        </List>
+      )}
+    </InfiniteLoader>
+  );
+
+  // Render mobile layout
   if (isMobile) {
-    // 📱 Full page
     return (
       <div className="p-4 mt-[70px]">
         <h1 className="text-xl font-bold mb-2">Notifications</h1>
-        <p>List of notifications...</p>
+        {renderList}
       </div>
     );
   }
 
-  // 💻 Modal for desktop
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-start z-50 md:ml-[70px]">
       <div className="bg-white p-6 shadow-xl w-[400px] relative h-full">
@@ -35,7 +121,7 @@ const NotificationPage = () => {
           <XIcon className="cursor-pointer" />
         </button>
         <h1 className="text-lg font-bold mb-3">Notifications</h1>
-        <p>List of notifications...</p>
+        {renderList}
       </div>
     </div>
   );

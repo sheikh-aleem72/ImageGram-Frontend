@@ -23,16 +23,14 @@ const Home = ({}) => {
             })
             .map((user) => {
               return (
-                <Link to={`/${user?._id}`}>
-                  <UserCard
-                    key={user?._id}
-                    userId={user?._id}
-                    username={user?.username}
-                    profilePicture={user?.profilePicture}
-                    name={user?.name}
-                    position={"vertical"}
-                  />
-                </Link>
+                <UserCard
+                  key={user?._id}
+                  userId={user?._id}
+                  username={user?.username}
+                  profilePicture={user?.profilePicture}
+                  name={user?.name}
+                  position={"vertical"}
+                />
               );
             })}
         </div>

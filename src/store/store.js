@@ -3,6 +3,7 @@ import authReducer from "../features/slices/authSlice";
 import socketReducer from "../features/slices/socketSlice";
 import modalSlice from "../features/slices/modalSlice";
 import detailSlice from "../features/slices/detailSlice";
+import notificationsCountSlice from "../features/slices/notificationsCountSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     socket: socketReducer,
     modal: modalSlice,
     detail: detailSlice,
+    notificationsCount: notificationsCountSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

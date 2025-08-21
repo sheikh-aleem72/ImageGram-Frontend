@@ -15,6 +15,9 @@ import { useSelector } from "react-redux";
 
 const Menubar = () => {
   const user = useSelector((state) => state?.auth?.user);
+  const unreadNotificationsCount = useSelector(
+    (state) => state?.notificationsCount?.unreadNotificationsCount
+  );
 
   return (
     <>
@@ -23,7 +26,11 @@ const Menubar = () => {
         <MenuItem Icon={HomeIcon} route={"/home"} />
         <MenuItem Icon={SearchIcon} route={"/search"} />
         <MenuItem Icon={SquarePlusIcon} route={"/create"} />
-        <MenuItem Icon={HeartIcon} route={"/notifications"} />
+        <MenuItem
+          Icon={HeartIcon}
+          route={"/notifications"}
+          count={unreadNotificationsCount}
+        />
         <MenuItem image={`${user?.profilePicture}`} route={`/${user?.id}`} />
       </div>
 
@@ -76,6 +83,7 @@ const Menubar = () => {
               Icon={HeartIcon}
               label={"Notification"}
               route={"/notifications"}
+              count={unreadNotificationsCount}
               showLabelOnHover
             />
 
