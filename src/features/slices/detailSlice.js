@@ -10,6 +10,8 @@ const initialState = {
     gender: "",
     name: "",
     bio: "",
+    followersCount: 0,
+    followingCount: 0,
   },
 };
 

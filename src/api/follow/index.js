@@ -114,3 +114,57 @@ export const getFollowingRequest = async ({ token, targetUserId }) => {
     throw error;
   }
 };
+
+export const getPendingFollowRequest = async ({ token }) => {
+  try {
+    const response = await axiosInstance.get("/follow-request/all-request", {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    return response?.data?.data;
+  } catch (error) {
+    console.log("Error from getPendingFollowRequest", error);
+    throw error;
+  }
+};
+
+export const acceptPendingRequest = async ({ id, token }) => {
+  try {
+    const response = await axiosInstance.post(
+      "/follow-request/accept",
+      { id },
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    console.log("Error from accept pending request", error);
+    throw error;
+  }
+};
+
+export const deletePendingRequest = async ({ id, token }) => {
+  try {
+    const response = await axiosInstance.delete(
+      "/follow-request/delete",
+
+      {
+        data: { id },
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    console.log("Error from delete pending request", error);
+    throw error;
+  }
+};

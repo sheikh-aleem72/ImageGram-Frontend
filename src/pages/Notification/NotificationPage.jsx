@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { XIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,10 @@ import { useFetchAllNotifications } from "@/Hooks/notification/useFetchAllNotifi
 const NotificationPage = () => {
   const socket = useSelector((state) => state?.socket?.instance);
   const userId = useSelector((state) => state?.auth?.user?.id);
+  const privacy = useSelector(
+    (state) => state?.detail?.details?.accountPrivacy
+  );
+  const isPrivate = privacy === "private";
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -101,11 +105,20 @@ const NotificationPage = () => {
     </InfiniteLoader>
   );
 
+  const requestContainer = (
+    <Link to={`/notifications/requests`}>
+      <div className="w-[300px] h-[70px] flex justify-center items-center">
+        Requests
+      </div>
+    </Link>
+  );
+
   // Render mobile layout
   if (isMobile) {
     return (
       <div className="p-4 mt-[70px]">
         <h1 className="text-xl font-bold mb-2">Notifications</h1>
+        {isPrivate && requestContainer}
         {renderList}
       </div>
     );
@@ -121,6 +134,7 @@ const NotificationPage = () => {
           <XIcon className="cursor-pointer" />
         </button>
         <h1 className="text-lg font-bold mb-3">Notifications</h1>
+        {isPrivate && requestContainer}
         {renderList}
       </div>
     </div>

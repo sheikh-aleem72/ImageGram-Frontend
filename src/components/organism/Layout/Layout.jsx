@@ -7,11 +7,16 @@ import {
   incrementNotificationsCount,
   setNotificationsCount,
 } from "@/features/slices/notificationsCountSlice";
+import { useGetUserDetails } from "@/Hooks/api/user/useGetUserDetails";
+import { setDetails } from "@/features/slices/detailSlice";
 
 const Layout = ({}) => {
   const dispatch = useDispatch();
   // Get the socket instance from Redux store
   const socket = useSelector((state) => state?.socket?.instance);
+  const userId = useSelector((state) => state?.auth?.user?.id);
+
+  const { isSuccess, userDetails } = useGetUserDetails(userId);
 
   useEffect(() => {
     // Exit early if socket is not available
@@ -40,6 +45,12 @@ const Layout = ({}) => {
       socket.off("new-notification", handleNewNotification);
     };
   }, [socket]);
+
+  useEffect(() => {
+    if (isSuccess && userDetails) {
+      dispatch(setDetails({ details: userDetails }));
+    }
+  }, [isSuccess, userDetails]);
 
   return (
     <>

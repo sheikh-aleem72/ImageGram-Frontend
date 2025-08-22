@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 const FollowButton = ({ userId, privacy }) => {
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
-  if (currentUserId === userId) return;
   const { isPending, relationshipStatus, refetch } =
     useGetRelationshipStatus(userId);
   const { followUserMutation } = useFollowUser();
@@ -31,6 +30,7 @@ const FollowButton = ({ userId, privacy }) => {
 
   let value = currentStatus === "not_following" ? "Follow" : currentStatus;
 
+  if (currentUserId === userId) return;
   async function handleClick(e) {
     try {
       e.preventDefault();
@@ -68,7 +68,7 @@ const FollowButton = ({ userId, privacy }) => {
       onClick={handleClick}
       className={`${
         buttonType[currentStatus] ?? "bg-imagegram-primary"
-      } cursor-pointer text-lg rounded-sm p-3`}
+      } cursor-pointer text-lg rounded-sm p-3 min-w-[100px]`}
       disabled={loading}
     >
       {loading || isPending ? <Loader2 className="animate-spin" /> : value}

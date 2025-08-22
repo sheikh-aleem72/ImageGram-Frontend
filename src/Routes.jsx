@@ -37,6 +37,10 @@ const NotificationPage = lazy(() =>
   import("./pages/Notification/NotificationPage")
 );
 
+const RequestPage = lazy(() =>
+  import("./components/organism/RequestPage/RequestPage")
+);
+
 export const AppRoutes = () => {
   return (
     <Suspense
@@ -112,6 +116,19 @@ export const AppRoutes = () => {
                 }
               >
                 <NotificationPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="notifications/requests"
+            element={
+              <Suspense
+                fallback={
+                  <ListSkeleton className={"md:ml-[70px] mt-[70px] md:mt-0"} />
+                }
+              >
+                <RequestPage />
               </Suspense>
             }
           />

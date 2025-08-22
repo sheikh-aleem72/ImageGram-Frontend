@@ -4,6 +4,7 @@ import { MODAL_KEYS } from "@/constants/modalKeys";
 import { setDetails } from "@/features/slices/detailSlice";
 import { openModal } from "@/features/slices/modalSlice";
 import { useGetUserDetails } from "@/Hooks/api/user/useGetUserDetails";
+import { useGetRelationshipStatus } from "@/Hooks/follow/useGetRelationshipStatus";
 import {
   BookmarkIcon,
   CameraIcon,
@@ -36,6 +37,7 @@ const ProfileLayout = () => {
 
   const { isFetching, isSuccess, error, userDetails } =
     useGetUserDetails(userId);
+  const { relationshipStatus } = useGetRelationshipStatus(userId);
 
   // Implement private account logic
   /**
@@ -47,12 +49,7 @@ const ProfileLayout = () => {
    * Else, show account is private
    */
   const isPrivate = userDetails?.accountPrivacy == "private";
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setDetails({ details: userDetails }));
-    }
-  }, [isSuccess, userDetails]);
+  const isFollowing = relationshipStatus?.relationship === "Following";
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 mt-14 md:ml-40 ">
@@ -179,7 +176,7 @@ const ProfileLayout = () => {
         )}
 
         {/* Tabs */}
-        {isPrivate ? (
+        {isPrivate && !isFollowing ? (
           <div className="h-[60vh] flex justify-center items-center flex-col gap-2 border-t-2 mt-6">
             <div className="rounded-full border-2 p-4 border-imagegram-text">
               <LockIcon className="md:w-10 md:h-10 h-6 w-6" />
