@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { XIcon } from "lucide-react";
+import { UserStarIcon, XIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   incrementNotificationsCount,
@@ -10,6 +10,7 @@ import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import NotificationRow from "@/components/molecules/NotificationRow/NotificationRow";
 import { useFetchAllNotifications } from "@/Hooks/notification/useFetchAllNotifications";
+import { useGetPendingFollowRequest } from "@/Hooks/follow/useGetPendingFollowRequest";
 
 const NotificationPage = () => {
   const socket = useSelector((state) => state?.socket?.instance);
@@ -28,6 +29,13 @@ const NotificationPage = () => {
   // Fetch notifications with infinite query (pagination)
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useFetchAllNotifications();
+
+  // Fetch pending request
+  const {
+    isPending,
+    isSuccess,
+    data: requestList,
+  } = useGetPendingFollowRequest();
 
   // Flatten paginated notifications into a single array
   const notifications = data
@@ -107,8 +115,19 @@ const NotificationPage = () => {
 
   const requestContainer = (
     <Link to={`/notifications/requests`}>
-      <div className="w-[300px] h-[70px] flex justify-center items-center">
-        Requests
+      <div className="w-full h-[70px] flex justify-between items-center border-2 ">
+        <div className="flex justify-start items-center gap-3 p-4">
+          <UserStarIcon className="w-10 h-10 rounded-full border border-black p-2" />
+          <div className="">
+            <h1 className="text-imagegram-text text-md">Follow requests</h1>
+            <h1 className="text-imagegram-subtext text-md">
+              Approve or ignore requests
+            </h1>
+          </div>
+        </div>
+        <div className=" p-4">
+          <span className="text-lg text-red-700">{requestList?.length}</span>
+        </div>
       </div>
     </Link>
   );

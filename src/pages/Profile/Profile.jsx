@@ -40,14 +40,6 @@ const ProfileLayout = () => {
   const { relationshipStatus } = useGetRelationshipStatus(userId);
 
   // Implement private account logic
-  /**
-   * If the account of target user is public then show the profile
-   * If the account is Private then,
-   * Fetch following list of current user
-   * Check if the current user follows target user
-   * If true, then show profile to current user
-   * Else, show account is private
-   */
   const isPrivate = userDetails?.accountPrivacy == "private";
   const isFollowing = relationshipStatus?.relationship === "Following";
 

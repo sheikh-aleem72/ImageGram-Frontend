@@ -27,9 +27,9 @@ const Layout = ({}) => {
       dispatch(setNotificationsCount({ unreadNotificationsCount: count }));
     };
 
-    const handleNewNotification = (count) => {
+    const handleNewNotification = (data) => {
       dispatch(
-        incrementNotificationsCount({ unreadNotificationsCount: count })
+        incrementNotificationsCount({ unreadNotificationsCount: data.count })
       );
     };
 
