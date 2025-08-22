@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/molecules/ProtectedRouter/ProtectedRout
 import ListSkeleton from "./components/organism/ListSkeleton/ListSkeleton";
 
 // ✅ Lazy load pages
-const Auth = lazy(() => import("./pages/Auth/auth"));
+const Auth = lazy(() => import("./pages/Auth/Auth"));
 const SignupContainer = lazy(() =>
   import("./components/organism/auth/SignupContainer")
 );
