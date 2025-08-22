@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SignupCard from "./signupCard";
+import SignupCard from "./SignupCard";
 import { useSignup } from "@/Hooks/api/auth/useSignup";
 import { useNavigate } from "react-router-dom";
 
