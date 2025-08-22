@@ -19,6 +19,7 @@ function NotificationRow({ index, style, data }) {
     follow: `Started following you`,
     like: `Liked your photo`,
     comment: `Commented`,
+    request: `Has accepted your request`,
   };
 
   return (

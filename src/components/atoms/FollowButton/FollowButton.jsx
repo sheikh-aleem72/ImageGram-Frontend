@@ -37,7 +37,7 @@ const FollowButton = ({ userId, privacy }) => {
       e.stopPropagation(); // Event bubbling or propagation stop clicks from propagating to parent
       setLoading(true);
 
-      if (currentStatus === "not_following") {
+      if (currentStatus === "not_following" || currentStatus == "Follow Back") {
         // Optimistic UI
         if (privacy == "private") {
           setOptimisticStatus("Requested");
