@@ -142,9 +142,11 @@ const ProfileLayout = () => {
           {isCurrentUser && (
             <div className="mt-4">
               <div className="flex gap-4 md:hidden">
-                <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
-                  Edit profile
-                </Button>
+                <Link to={`/${userId}/accounts/edit`}>
+                  <Button className="bg-gray-100 text-black hover:bg-gray-200 p-4 text-md  cursor-pointer">
+                    Edit profile
+                  </Button>
+                </Link>
                 <Button className="bg-gray-100 text-black hover:bg-gray-200 px-4 py-1 text-sm">
                   View archive
                 </Button>
@@ -168,7 +170,7 @@ const ProfileLayout = () => {
         )}
 
         {/* Tabs */}
-        {isPrivate && !isFollowing ? (
+        {!isCurrentUser && isPrivate && !isFollowing ? (
           <div className="h-[60vh] flex justify-center items-center flex-col gap-2 border-t-2 mt-6">
             <div className="rounded-full border-2 p-4 border-imagegram-text">
               <LockIcon className="md:w-10 md:h-10 h-6 w-6" />
