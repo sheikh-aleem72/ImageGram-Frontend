@@ -41,6 +41,10 @@ const RequestPage = lazy(() =>
   import("./components/organism/RequestPage/RequestPage")
 );
 
+const CreatePostPage = lazy(() => import("./pages/Post/CreatePostPage"));
+
+const PostPage = lazy(() => import("./components/organism/PostPage/PostPage"));
+
 export const AppRoutes = () => {
   return (
     <Suspense
@@ -129,6 +133,36 @@ export const AppRoutes = () => {
                 }
               >
                 <RequestPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="create-post"
+            element={
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex justify-center items-center">
+                    <Loader2 className="animate-spin" />
+                  </div>
+                }
+              >
+                <CreatePostPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/post/:postId"
+            element={
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex justify-center items-center">
+                    <Loader2 className="animate-spin" />
+                  </div>
+                }
+              >
+                <PostPage />
               </Suspense>
             }
           />

@@ -25,7 +25,7 @@ const Menubar = () => {
       <div className="fixed bottom-0 left-0 w-full h-[60px] bg-white border-t border-gray-200 flex justify-around items-center md:hidden z-50">
         <MenuItem Icon={HomeIcon} route={"/home"} />
         <MenuItem Icon={SearchIcon} route={"/search"} />
-        <MenuItem Icon={SquarePlusIcon} route={"/create"} />
+        <MenuItem Icon={SquarePlusIcon} route={"/create-post"} />
         <MenuItem
           Icon={HeartIcon}
           route={"/notifications"}
@@ -69,7 +69,7 @@ const Menubar = () => {
             <MenuItem
               Icon={SquarePlusIcon}
               label={"Create"}
-              route={"/create"}
+              route={"/create-post"}
               showLabelOnHover
             />
 

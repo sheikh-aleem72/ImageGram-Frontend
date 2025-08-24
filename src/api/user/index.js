@@ -10,8 +10,6 @@ export const getUserDetailsRequest = async ({ userId, token }) => {
       }
     );
 
-    console.log("user details: ", response);
-
     return response.data.data;
   } catch (error) {
     console.log("Error from get user detail request", error);

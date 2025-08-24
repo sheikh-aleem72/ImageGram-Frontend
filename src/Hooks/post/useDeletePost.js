@@ -1,0 +1,30 @@
+import { deletePostRequest } from "@/api/post";
+import { useMutation } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
+
+export const useDeletePost = () => {
+  const token = useSelector((state) => state?.auth?.token);
+
+  const {
+    isPending,
+    isSuccess,
+    error,
+    mutateAsync: deletePostMutation,
+  } = useMutation({
+    mutationFn: (postId) => deletePostRequest({ token, postId }),
+    onSuccess: (response) => {
+      toast("Post delete successfully!");
+    },
+    onError: (error) => {
+      toast.error("Error while deleting post!");
+    },
+  });
+
+  return {
+    isPending,
+    isSuccess,
+    error,
+    deletePostMutation,
+  };
+};

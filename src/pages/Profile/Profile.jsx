@@ -186,7 +186,7 @@ const ProfileLayout = () => {
             </div>
           </div>
         ) : (
-          <div className="border-b-2 border-gray-300 mt-8 flex justify-center gap-10 md:gap-40 uppercase text-sm font-semibold text-gray-500">
+          <div className="border-b-2 border-gray-300 mt-8 flex justify-center gap-10 md:gap-40 uppercase text-sm font-semibold ">
             <button className="py-3 cursor-pointer">
               <NavLink to={`/${userId}`} end>
                 <GridIcon className="md:w-10 md: h-6 w-6" />
@@ -206,7 +206,7 @@ const ProfileLayout = () => {
         )}
 
         {!isPrivate && (
-          <div className="h-[60vh] flex justify-center items-center flex-col gap-4">
+          <div className="h-auto ">
             <Outlet />
           </div>
         )}
