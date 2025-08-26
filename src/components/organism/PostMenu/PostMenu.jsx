@@ -55,21 +55,20 @@ const PostMenu = ({ isAuthor, onEdit, onDelete, onCopyLink }) => {
               <button
                 onClick={() => {
                   setOpen(false);
-                  onSave?.();
+                  onCopyLink?.();
                 }}
                 className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 border-b"
               >
                 Copy Link
               </button>
-              <button
+              {/* <button
                 onClick={() => {
                   setOpen(false);
-                  onCopyLink?.();
                 }}
                 className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 border-b text-red-500"
               >
                 Unfollow
-              </button>
+              </button> */}
             </>
           )}
         </div>

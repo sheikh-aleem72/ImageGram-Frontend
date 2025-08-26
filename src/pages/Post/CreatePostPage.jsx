@@ -159,7 +159,7 @@ function CreatePostPage() {
           </div>
           <div className="flex flex-col gap-2">
             <div className=" justify-center  flex flex-col">
-              <label for="caption" className="block text-lg font-semibold">
+              <label htmlFor="caption" className="block text-lg font-semibold">
                 Enter caption for photo
               </label>
               <Textarea

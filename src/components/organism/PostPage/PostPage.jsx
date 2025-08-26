@@ -5,14 +5,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import PostCard from "../PostCard/PostCard";
 import { useSelector } from "react-redux";
 import PostMenu from "../PostMenu/PostMenu";
+import { useRemoveLike } from "@/Hooks/like/useRemoveLike";
+import { useAddLike } from "@/Hooks/like/useAddLike";
 
 function PostPage() {
   const { postId } = useParams();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
 
   const { data: post } = useGetPost(postId);
+  const { removeLikeMutation } = useRemoveLike();
+  const { addLikeMutation } = useAddLike();
 
   const isAuthor = currentUserId === post?.author?._id;
 
@@ -40,6 +43,22 @@ function PostPage() {
     return `${diffDay}d ago`;
   })();
 
+  async function handleLike() {
+    if (post?.isLiked) {
+      const response = await removeLikeMutation({
+        type: "post",
+        targetId: postId,
+      });
+      console.log("like removed: ", response);
+    } else {
+      const response = await addLikeMutation({
+        type: "post",
+        targetId: postId,
+      });
+      console.log("post liked: ", response);
+    }
+  }
+
   // ---------- Mobile Layout ----------
   const MobileLayout = () => (
     <div className=" pb-16">
@@ -60,7 +79,10 @@ function PostPage() {
         </button>
 
         {/* Left: Image */}
-        <div className="flex-1 bg-black flex items-center justify-center">
+        <div
+          className="flex-1 bg-black flex items-center justify-center"
+          onDoubleClick={handleLike}
+        >
           <img
             src={post?.imageUrls?.[0]}
             alt="Post"
@@ -99,9 +121,21 @@ function PostPage() {
 
           {/* Actions */}
           <div className="border-t pt-3 flex items-center gap-4">
-            <Heart className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
-            <MessageCircle className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
-            <Share2 className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
+            <button onClick={handleLike}>
+              <Heart
+                className={`w-6 h-6 cursor-pointer hover:scale-110 transition ${
+                  post?.isLiked
+                    ? "text-red-500 fill-red-500"
+                    : "text-imagegram-text fill-transparent"
+                }`}
+              />
+            </button>
+            <button>
+              <MessageCircle className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
+            </button>
+            <button>
+              <Share2 className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
+            </button>{" "}
           </div>
 
           {/* Meta Info */}

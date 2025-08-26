@@ -5,7 +5,6 @@ import { Link, useParams } from "react-router-dom";
 const GridTab = ({}) => {
   const { userId } = useParams();
   const { data: posts } = useGetAllPostOfUser(userId);
-  console.log("posts: ", posts);
 
   return (
     <>
@@ -37,7 +36,7 @@ const GridTab = ({}) => {
             {posts?.map((post, idx) => (
               <Link to={`/post/${post?._id}`}>
                 <img
-                  key={idx}
+                  key={post?._id}
                   src={post?.imageUrls[0]}
                   alt={`Post ${idx}`}
                   className="w-full h-full object-cover aspect-square border-1 border-black/10"
