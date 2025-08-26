@@ -102,7 +102,9 @@ const ProfileLayout = () => {
           {/* Stats */}
           <div className="flex gap-12 mt-4 md:justify-normal justify-center">
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">
-              <span className="font-semibold md:text-[1.5rem]">0</span>
+              <span className="font-semibold md:text-[1.5rem]">
+                {userDetails?.postCount ?? 0}
+              </span>
               <p className=" text-[1.2rem]">Posts</p>
             </div>
             <div className="flex md:flex-row md:gap-4 flex-col justify-center items-center">

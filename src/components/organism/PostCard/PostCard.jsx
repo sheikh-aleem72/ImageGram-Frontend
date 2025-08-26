@@ -3,7 +3,6 @@ import { Heart, MessageCircle, Share2 } from "lucide-react";
 import React from "react";
 import PostMenu from "../PostMenu/PostMenu";
 import { useSelector } from "react-redux";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 function PostCard({ postId }) {
