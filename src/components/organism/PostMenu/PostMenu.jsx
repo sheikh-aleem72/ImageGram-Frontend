@@ -31,7 +31,7 @@ const PostMenu = ({ isAuthor, onEdit, onDelete, onCopyLink }) => {
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50 ">
           {isAuthor ? (
             <>
-              <button
+              {/* <button
                 onClick={() => {
                   setOpen(false);
                   onEdit?.();
@@ -39,7 +39,7 @@ const PostMenu = ({ isAuthor, onEdit, onDelete, onCopyLink }) => {
                 className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 border-b"
               >
                 Edit
-              </button>
+              </button> */}
               <button
                 onClick={() => {
                   setOpen(false);
