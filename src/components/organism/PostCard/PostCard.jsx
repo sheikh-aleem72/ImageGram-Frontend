@@ -4,11 +4,14 @@ import React from "react";
 import PostMenu from "../PostMenu/PostMenu";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDeletePost } from "@/Hooks/post/useDeletePost";
 
 function PostCard({ postId }) {
   const currentUser = useSelector((state) => state?.auth?.user?.id);
-  const { data: post } = useGetPost(postId);
   const navigate = useNavigate();
+
+  const { data: post } = useGetPost(postId);
+  const { deletePostMutation } = useDeletePost();
 
   const isAuthor = currentUser === post?.author?._id;
 
@@ -26,6 +29,11 @@ function PostCard({ postId }) {
     return `${diffDay}d ago`;
   })();
 
+  async function onDelete() {
+    await deletePostMutation(postId);
+    navigate(-1);
+  }
+
   return (
     <div className="flex flex-col w-full bg-white mt-17">
       {/* Header */}
@@ -38,7 +46,7 @@ function PostCard({ postId }) {
           />
           <span className="font-semibold">{post?.author?.username}</span>
         </div>
-        <PostMenu isAuthor={isAuthor} />
+        <PostMenu isAuthor={isAuthor} onDelete={onDelete} />
       </div>
 
       {/* Image */}
