@@ -55,7 +55,7 @@ const Layout = ({}) => {
   return (
     <>
       <div className="h-[100vh]">
-        <Navbar />
+        {/* <Navbar /> */}
         <Outlet />
         <Menubar />
       </div>

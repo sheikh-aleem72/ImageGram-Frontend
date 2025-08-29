@@ -45,6 +45,10 @@ const CreatePostPage = lazy(() => import("./pages/Post/CreatePostPage"));
 
 const PostPage = lazy(() => import("./components/organism/PostPage/PostPage"));
 
+const CommentPage = lazy(() =>
+  import("./components/organism/CommentPage/CommentPage")
+);
+
 export const AppRoutes = () => {
   return (
     <Suspense
@@ -163,6 +167,21 @@ export const AppRoutes = () => {
                 }
               >
                 <PostPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/post/:postId/comments"
+            element={
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex justify-center items-center">
+                    <Loader2 className="animate-spin" />
+                  </div>
+                }
+              >
+                <CommentPage />
               </Suspense>
             }
           />

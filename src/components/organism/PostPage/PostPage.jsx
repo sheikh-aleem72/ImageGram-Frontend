@@ -7,15 +7,27 @@ import { useSelector } from "react-redux";
 import PostMenu from "../PostMenu/PostMenu";
 import { useRemoveLike } from "@/Hooks/like/useRemoveLike";
 import { useAddLike } from "@/Hooks/like/useAddLike";
+import { useDeletePost } from "@/Hooks/post/useDeletePost";
+import { Input } from "@/components/ui/input";
+import { useCreateComment } from "@/Hooks/comment/useCreateComment";
+import CommentPage from "../CommentPage/CommentPage";
 
 function PostPage() {
   const { postId } = useParams();
+  const [comment, setComment] = useState("");
+
   const navigate = useNavigate();
+
+  const commentRef = useRef(null);
+
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
 
   const { data: post } = useGetPost(postId);
   const { removeLikeMutation } = useRemoveLike();
   const { addLikeMutation } = useAddLike();
+  const { deletePostMutation } = useDeletePost();
+  const { isSuccess, isPending, error, createCommentMutation } =
+    useCreateComment();
 
   const isAuthor = currentUserId === post?.author?._id;
 
@@ -55,8 +67,26 @@ function PostPage() {
         type: "post",
         targetId: postId,
       });
-      console.log("post liked: ", response);
     }
+  }
+
+  function handleCommentRef() {
+    commentRef?.current?.focus();
+  }
+
+  async function onDelete() {
+    await deletePostMutation(postId);
+    navigate(-1);
+  }
+
+  async function onCopyLink() {
+    await navigator.clipboard.writeText(window.location.href);
+  }
+
+  async function handlePostComment() {
+    if (comment.trim() === "") return;
+    await createCommentMutation({ postId, comment });
+    setComment("");
   }
 
   // ---------- Mobile Layout ----------
@@ -103,12 +133,16 @@ function PostPage() {
               <span className="font-semibold">{post?.author?.username}</span>
             </div>
             <div className="mr-15">
-              <PostMenu isAuthor={isAuthor} />
+              <PostMenu
+                isAuthor={isAuthor}
+                onDelete={onDelete}
+                onCopyLink={onCopyLink}
+              />
             </div>
           </div>
 
           {/* Caption */}
-          <div className="flex-1 overflow-y-auto py-3">
+          <div className="flex-1 overflow-y-auto py-3 overflow-auto">
             <p className="text-gray-800 flex gap-2 items-center">
               <img
                 src={post?.author?.profilePicture}
@@ -121,7 +155,7 @@ function PostPage() {
 
           {/* Actions */}
           <div className="border-t pt-3 flex items-center gap-4">
-            <button onClick={handleLike}>
+            <button onClick={handleLike} type="button">
               <Heart
                 className={`w-6 h-6 cursor-pointer hover:scale-110 transition ${
                   post?.isLiked
@@ -130,10 +164,13 @@ function PostPage() {
                 }`}
               />
             </button>
-            <button>
+            <button
+              type="button"
+              onClick={() => navigate(`/post/${postId}/comments`)}
+            >
               <MessageCircle className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
             </button>
-            <button>
+            <button type="button">
               <Share2 className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
             </button>{" "}
           </div>
@@ -143,13 +180,6 @@ function PostPage() {
             {post?.likeCount || 0} likes
           </span>
           <span className="text-xs text-gray-400">{timeAgo}</span>
-
-          <div className="items-center mt-2 justify-between md:flex hidden">
-            <input type="text" placeholder="Add a comment" />
-            <button className="text-imagegram-accent font-semibold">
-              Post
-            </button>
-          </div>
         </div>
       </div>
     </div>

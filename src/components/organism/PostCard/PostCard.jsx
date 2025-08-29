@@ -1,6 +1,6 @@
 import { useGetPost } from "@/Hooks/post/useGetPost";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
-import React from "react";
+import { ChevronLeftIcon, Heart, MessageCircle, Share2 } from "lucide-react";
+import React, { useRef } from "react";
 import PostMenu from "../PostMenu/PostMenu";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -49,9 +49,17 @@ function PostCard({ postId }) {
   }
 
   return (
-    <div className="flex flex-col w-full bg-white mt-17">
+    <div className="flex flex-col w-full bg-white">
+      <div className="flex items-center w-full justify-between p-2 fixed border-b">
+        <ChevronLeftIcon
+          className="w-7 h-7 cursor-pointer"
+          onClick={() => navigate(-1)}
+        />
+        <p className="text-imagegram-text text-md font-semibold">Post</p>
+        <div className="mr-2" />
+      </div>
       {/* Header */}
-      <div className="flex border-b pb-3 justify-between items-center">
+      <div className="flex border-b pb-3 justify-between items-center mt-14">
         <div className="flex items-center gap-3">
           <img
             src={post?.author?.profilePicture}
@@ -92,7 +100,7 @@ function PostCard({ postId }) {
             />
           </button>
 
-          <button>
+          <button onClick={() => navigate(`/post/${postId}/comments`)}>
             <MessageCircle className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
           </button>
           <button>
@@ -108,7 +116,10 @@ function PostCard({ postId }) {
           <span className="font-semibold">{post?.author?.username}</span>
           {post?.caption}
         </p>
-        <p className="text-md text-imagegram-subtext cursor-pointer hover:text-imagegram-text">
+        <p
+          className="text-md text-imagegram-subtext cursor-pointer hover:text-imagegram-text"
+          onClick={() => navigate(`/post/${postId}/comments`)}
+        >
           view all {post?.commentCount} comments
         </p>
         <span className="text-xs text-imagegram-subtext">{timeAgo}</span>
