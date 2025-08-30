@@ -2,6 +2,8 @@ import CommentCard from "@/components/molecules/CommentCard/CommentCard";
 import { useCreateComment } from "@/Hooks/comment/useCreateComment";
 import { useGetAllParentComment } from "@/Hooks/comment/useGetAllParentComment";
 import { useGetRepliesOfComment } from "@/Hooks/comment/useGetRepliesOfComment";
+import { useAddLike } from "@/Hooks/like/useAddLike";
+import { useRemoveLike } from "@/Hooks/like/useRemoveLike";
 import { ChevronLeftIcon, XIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -23,6 +25,11 @@ function CommentPage() {
 
   // Hook to create new comment/reply
   const { createCommentMutation } = useCreateComment();
+
+  // Hook to create like
+  const { addLikeMutation } = useAddLike();
+  // Hook to remove like
+  const { removeLikeMutation } = useRemoveLike();
 
   // Fetch all parent-level comments of this post
   const { data: commentList } = useGetAllParentComment(postId);
@@ -60,6 +67,22 @@ function CommentPage() {
     }));
   }
 
+  async function onLike(commentId, isLiked) {
+    if (isLiked) {
+      await removeLikeMutation({
+        type: "comment",
+        targetId: commentId,
+        postId,
+      });
+    } else {
+      await addLikeMutation({
+        type: "comment",
+        targetId: commentId,
+        postId,
+      });
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen w-full md:w-[70vh] md:mx-auto justify-center bg-white pb-15">
       {/* ---------- Header ---------- */}
@@ -84,6 +107,9 @@ function CommentPage() {
                 time={comment?.createdAt}
                 commentId={comment?._id}
                 onReply={handleReply}
+                like={comment?.likeCount}
+                isLiked={comment?.isLiked}
+                onLike={onLike}
               />
 
               {/* Replies section lives here, not inside CommentCard */}
@@ -98,15 +124,18 @@ function CommentPage() {
                         commentId={reply?._id}
                         onReply={handleReply}
                         parentUsername={reply?.parentComment?.author?.username}
+                        like={reply?.likeCount}
+                        isLiked={reply?.isLiked}
+                        onLike={onLike}
                       />
                     </div>
                   ))
                 : comment.replyCount > 0 && (
                     <button
-                      className="text-sm text-gray-500 ml-12"
+                      className="text-sm text-gray-500 ml-12 cursor-pointer"
                       onClick={() => onViewReplies(comment._id)}
                     >
-                      ── View all {comment.replyCount} replies
+                      ── View all replies
                     </button>
                   )}
             </div>
@@ -156,7 +185,7 @@ function CommentPage() {
         <button
           type="submit"
           disabled={!comment.trim()}
-          className={`text-blue-500 text-sm font-semibold ${
+          className={`text-blue-500 text-sm font-semibold cursor-pointer ${
             !comment.trim() && "opacity-50"
           }`}
           onClick={handleComment}

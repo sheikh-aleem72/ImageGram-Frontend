@@ -26,8 +26,8 @@ function NotificationRow({ index, style, data }) {
 
   const paths = {
     follow: `/${notification?.sender?._id}`,
-    like: `/`,
-    comment: `/`,
+    like: `/home`,
+    comment: `/home`,
     accept: `/${notification?.sender?._id}`,
     request: `/notifications/requests`,
   };

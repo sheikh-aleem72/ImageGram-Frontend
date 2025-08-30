@@ -7,8 +7,11 @@ function CommentCard({
   content,
   time,
   commentId,
+  like,
   onReply,
   parentUsername,
+  onLike,
+  isLiked,
 }) {
   const timeAgo = (() => {
     const now = Date.now();
@@ -35,16 +38,27 @@ function CommentCard({
         </span>
         <div className="flex mt-1 gap-4">
           <span className="text-sm text-gray-500 ">{timeAgo}</span>
-          <span className="text-sm text-gray-500 ">like</span>
+          {like > 0 && (
+            <span className="text-sm text-gray-500 ">
+              {like === 1 ? "1 like" : `${like} likes`}
+            </span>
+          )}
           <span
-            className="text-sm text-gray-500"
+            className="text-sm text-gray-500 cursor-pointer"
             onClick={() => onReply(commentId, username)}
           >
             Reply
           </span>
         </div>
       </div>
-      <HeartIcon className="w-4 h-4 text-imagegram-subtext" />
+      <HeartIcon
+        className={`w-4 h-4 text-imagegram-subtex cursor-pointer ${
+          isLiked
+            ? "text-red-500 fill-red-500"
+            : "text-imagegram-text fill-transparent"
+        }`}
+        onClick={() => onLike(commentId, isLiked)}
+      />
     </div>
   );
 }
