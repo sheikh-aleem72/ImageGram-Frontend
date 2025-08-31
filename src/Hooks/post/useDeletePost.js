@@ -1,10 +1,11 @@
 import { deletePostRequest } from "@/api/post";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
 export const useDeletePost = () => {
   const token = useSelector((state) => state?.auth?.token);
+  const queryClient = useQueryClient();
 
   const {
     isPending,
@@ -15,6 +16,7 @@ export const useDeletePost = () => {
     mutationFn: (postId) => deletePostRequest({ token, postId }),
     onSuccess: (response) => {
       toast("Post delete successfully!");
+      queryClient.invalidateQueries(["feed"]);
     },
     onError: (error) => {
       toast.error("Error while deleting post!");

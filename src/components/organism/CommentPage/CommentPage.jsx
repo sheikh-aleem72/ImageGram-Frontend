@@ -39,7 +39,6 @@ function CommentPage() {
 
   // Handle posting a new comment or reply
   async function handleComment() {
-    if (!comment || !postId || !replyTo) return;
     await createCommentMutation({
       content: comment,
       postId: postId,

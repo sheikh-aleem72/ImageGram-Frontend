@@ -60,12 +60,12 @@ const Menubar = () => {
               route={"/search"}
               showLabelOnHover
             />
-            <MenuItem
+            {/* <MenuItem
               Icon={CompassIcon}
               label={"Explore"}
               route={"/explore"}
               showLabelOnHover
-            />
+            /> */}
             <MenuItem
               Icon={SquarePlusIcon}
               label={"Create"}
@@ -73,12 +73,12 @@ const Menubar = () => {
               showLabelOnHover
             />
 
-            <MenuItem
+            {/* <MenuItem
               Icon={MessageCircleIcon}
               label={"Message"}
               route={"/message"}
               showLabelOnHover
-            />
+            /> */}
             <MenuItem
               Icon={HeartIcon}
               label={"Notification"}

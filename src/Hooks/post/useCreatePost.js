@@ -1,10 +1,11 @@
 import { createPostRequest } from "@/api/post";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
 export const useCreatePost = () => {
   const token = useSelector((state) => state?.auth?.token);
+  const queryClient = useQueryClient();
 
   const {
     isPending,
@@ -15,6 +16,7 @@ export const useCreatePost = () => {
     mutationFn: (data) => createPostRequest({ token, data }),
     onSuccess: (response) => {
       toast("Post created successfully!");
+      queryClient.invalidateQueries(["feed"]);
     },
     onError: (error) => {
       console.log("Error while posting: ", error);
