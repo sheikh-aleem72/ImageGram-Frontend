@@ -7,6 +7,7 @@ export const useGetUserDetails = (userId) => {
 
   const {
     isFetching,
+    isPending,
     isSuccess,
     error,
     data: userDetails,
@@ -19,6 +20,7 @@ export const useGetUserDetails = (userId) => {
 
   return {
     isFetching,
+    isPending,
     isSuccess,
     error,
     userDetails,

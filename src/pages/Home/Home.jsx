@@ -6,12 +6,13 @@ import PostCard from "@/components/organism/PostCard/PostCard";
 import { useGetAllUser } from "@/Hooks/api/user/useGetAllUser";
 import { useGetFeed } from "@/Hooks/feed/useGetFeed";
 import { useSelector } from "react-redux";
+import PostCardSkeleton from "@/components/molecules/PostCardSkeleton/PostCardSkeleton";
 
 export default function Home() {
   const socket = useSelector((state) => state.socket.instance);
   const currentUserId = useSelector((state) => state?.auth?.user?.id);
 
-  const { data: feed } = useGetFeed();
+  const { data: feed, isPending } = useGetFeed();
   const { usersData } = useGetAllUser();
 
   return (
@@ -20,7 +21,7 @@ export default function Home() {
         bg-imagegram-bg
         flex items-center justify-center
          text-2xl
-        h-screen w-full
+        h-screen w-full pb-14
         md:h-auto md:min-h-screen md:w-[600px] md:mx-auto md:mt-10
       "
     >
@@ -42,7 +43,7 @@ export default function Home() {
       ) : (
         <div className="w-full h-full flex flex-col ">
           {feed?.map((post) => {
-            return <PostCard postId={post?._id} />;
+            return <PostCard postId={post?._id} key={post?._id} />;
           })}
         </div>
       )}

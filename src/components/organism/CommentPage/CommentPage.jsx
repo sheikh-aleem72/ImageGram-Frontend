@@ -1,4 +1,5 @@
 import CommentCard from "@/components/molecules/CommentCard/CommentCard";
+import CommentPageSkeleton from "@/components/molecules/CommentPageSkeleton/CommentPageSkeleton";
 import { useCreateComment } from "@/Hooks/comment/useCreateComment";
 import { useGetAllParentComment } from "@/Hooks/comment/useGetAllParentComment";
 import { useGetRepliesOfComment } from "@/Hooks/comment/useGetRepliesOfComment";
@@ -32,7 +33,7 @@ function CommentPage() {
   const { removeLikeMutation } = useRemoveLike();
 
   // Fetch all parent-level comments of this post
-  const { data: commentList } = useGetAllParentComment(postId);
+  const { data: commentList, isPending } = useGetAllParentComment(postId);
 
   // Fetch replies of the corresponding comment
   const { data: repliesList, refetch } = useGetRepliesOfComment(commentId);
@@ -81,6 +82,10 @@ function CommentPage() {
         postId,
       });
     }
+  }
+
+  if (isPending) {
+    return <CommentPageSkeleton />;
   }
 
   return (

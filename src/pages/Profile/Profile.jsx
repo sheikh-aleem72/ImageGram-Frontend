@@ -24,6 +24,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import ProfilePageSkeleton from "@/components/molecules/ProfilePageSkeleton/ProfilePageSkeleton";
 
 const ProfileLayout = () => {
   const { userId } = useParams();
@@ -36,7 +37,7 @@ const ProfileLayout = () => {
 
   const navigate = useNavigate();
 
-  const { isFetching, isSuccess, error, userDetails } =
+  const { isPending, isSuccess, error, userDetails } =
     useGetUserDetails(userId);
   const { relationshipStatus } = useGetRelationshipStatus(userId);
 
@@ -44,8 +45,11 @@ const ProfileLayout = () => {
   const isPrivate = userDetails?.accountPrivacy == "private";
   const isFollowing = relationshipStatus?.relationship === "Following";
 
+  if (isPending) {
+    return <ProfilePageSkeleton />;
+  }
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 md:ml-40 relative pb-14">
+    <div className=" w-full max-w-5xl mx-auto px-4 py-6 md:mt-0 md:ml-40 relative pb-14">
       {/* Option menu */}
       {isCurrentUser && (
         <div className="absolute top-0 right-0 flex flex-col items-start pl-4 md:hidden">

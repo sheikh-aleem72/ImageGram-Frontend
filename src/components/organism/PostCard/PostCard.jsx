@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { useDeletePost } from "@/Hooks/post/useDeletePost";
 import { useRemoveLike } from "@/Hooks/like/useRemoveLike";
 import { useAddLike } from "@/Hooks/like/useAddLike";
+import PostCardSkeleton from "@/components/molecules/PostCardSkeleton/PostCardSkeleton";
 
 function PostCard({ postId }) {
   const currentUser = useSelector((state) => state?.auth?.user?.id);
   const navigate = useNavigate();
   const [showFullCaption, setShowFullCaption] = useState(false);
 
-  const { data: post } = useGetPost(postId);
+  const { data: post, isPending } = useGetPost(postId);
   const { deletePostMutation } = useDeletePost();
   const { removeLikeMutation } = useRemoveLike();
   const { addLikeMutation } = useAddLike();
@@ -48,6 +49,10 @@ function PostCard({ postId }) {
     } else {
       await addLikeMutation({ type: "post", targetId: postId });
     }
+  }
+
+  if (isPending) {
+    return <PostCardSkeleton />;
   }
 
   return (
