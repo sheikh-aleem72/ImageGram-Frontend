@@ -5,6 +5,8 @@ import { toast } from "sonner";
 
 export const useCreatePost = () => {
   const token = useSelector((state) => state?.auth?.token);
+  const userId = useSelector((state) => state?.auth?.user?.id);
+
   const queryClient = useQueryClient();
 
   const {
@@ -16,7 +18,7 @@ export const useCreatePost = () => {
     mutationFn: (data) => createPostRequest({ token, data }),
     onSuccess: (response) => {
       toast("Post created successfully!");
-      queryClient.invalidateQueries(["feed"]);
+      queryClient.invalidateQueries(["feed", userId]);
     },
     onError: (error) => {
       console.log("Error while posting: ", error);

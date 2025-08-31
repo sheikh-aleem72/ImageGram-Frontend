@@ -8,12 +8,6 @@ const FollowersPage = ({ isModal, onClose }) => {
   const { userId } = useParams();
   const { isSuccess, isPending, FollowerList } = useGetFollowers(userId);
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("followerList", FollowerList);
-    }
-  }, [isSuccess, FollowerList]);
-
   if (isPending) {
     return (
       <div className="flex justify-center items-center p-4">

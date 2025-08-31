@@ -54,6 +54,7 @@ export const getAllPostOfUserRequest = async ({ token, userId }) => {
 
 export const deletePostRequest = async ({ token, postId }) => {
   try {
+    console.log("postId: ", postId);
     const response = await axiosInstance.delete(`/post/delete`, {
       data: {
         postId,

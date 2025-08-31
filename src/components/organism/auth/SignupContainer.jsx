@@ -19,9 +19,6 @@ const SignupContainer = ({}) => {
 
   async function onSignupFormSubmit(e) {
     e.preventDefault();
-    console.log("Signed in form submitted successfully", signupForm);
-
-    console.log("Singup form submitted successfully", signupForm);
     if (
       !signupForm.username ||
       !signupForm.email ||

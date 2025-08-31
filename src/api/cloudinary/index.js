@@ -22,7 +22,6 @@ export const uploadImageToCloudinaryUsingPresignedUrl = async (
   config
 ) => {
   try {
-    console.log("Cloudinary url: ", URL);
     const response = await axios.post(URL, formData, {
       headers: { "Content-Type": "multipart/form-data" },
       ...config,

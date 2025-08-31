@@ -19,10 +19,6 @@ function RequestPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    console.log("requests: ", data);
-  }, [data]);
-
   const requestList = (
     <div>
       {data &&

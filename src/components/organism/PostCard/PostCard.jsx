@@ -33,6 +33,7 @@ function PostCard({ postId }) {
   })();
 
   async function onDelete() {
+    if (!postId) return;
     await deletePostMutation(postId);
     navigate(-1);
   }
@@ -79,6 +80,7 @@ function PostCard({ postId }) {
           src={post?.imageUrls?.[0]}
           alt="Post"
           className="max-h-[600px] w-full object-contain"
+          loading="lazy"
         />
       </div>
 

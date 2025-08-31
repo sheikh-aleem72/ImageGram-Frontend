@@ -7,11 +7,6 @@ import { useParams } from "react-router-dom";
 const FollowingPage = ({ isModal, onClose }) => {
   const { userId } = useParams();
   const { isSuccess, isPending, FollowingList } = useGetFollowing(userId);
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("followerList", FollowingList);
-    }
-  }, [isSuccess, FollowingList]);
 
   if (isPending) {
     return (

@@ -61,7 +61,7 @@ export const getLikeRequest = async ({ token, targetId, type }) => {
       }
     );
 
-    console.log("like response: ", response?.data?.data);
+    "like response: ", response?.data?.data;
 
     return response?.data?.data;
   } catch (error) {

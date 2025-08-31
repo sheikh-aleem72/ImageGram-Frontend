@@ -5,6 +5,8 @@ import { toast } from "sonner";
 
 export const useDeletePost = () => {
   const token = useSelector((state) => state?.auth?.token);
+  const userId = useSelector((state) => state?.auth?.user?.id);
+
   const queryClient = useQueryClient();
 
   const {
@@ -16,7 +18,7 @@ export const useDeletePost = () => {
     mutationFn: (postId) => deletePostRequest({ token, postId }),
     onSuccess: (response) => {
       toast("Post delete successfully!");
-      queryClient.invalidateQueries(["feed"]);
+      queryClient.invalidateQueries(["feed", userId]);
     },
     onError: (error) => {
       toast.error("Error while deleting post!");

@@ -80,7 +80,6 @@ const ChangeProfileModal = ({}) => {
 
   async function handleUpload() {
     if (!image) return alert("Please select an image first.");
-    console.log("Uploading file:", imageUrl);
 
     try {
       const response = await updateprofilepictureMutation(imageUrl);

@@ -11,8 +11,6 @@ export const useSignup = () => {
   } = useMutation({
     mutationFn: signupRequest,
     onSuccess: (data) => {
-      console.log("Signed up successfully!", data);
-
       toast("Successfully signed up", {
         description: "You will be redirected to sign in page in few moments",
       });

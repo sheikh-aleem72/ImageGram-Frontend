@@ -61,7 +61,6 @@ function PostPage() {
         type: "post",
         targetId: postId,
       });
-      console.log("like removed: ", response);
     } else {
       const response = await addLikeMutation({
         type: "post",
