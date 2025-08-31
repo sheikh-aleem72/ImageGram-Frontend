@@ -1,7 +1,8 @@
 import FollowButton from "@/components/atoms/FollowButton/FollowButton";
+import OptionButton from "@/components/atoms/OptionButton/OptionButton";
 import { Button } from "@/components/ui/button";
 import { MODAL_KEYS } from "@/constants/modalKeys";
-import { setDetails } from "@/features/slices/detailSlice";
+import { MenuIcon } from "lucide-react";
 import { openModal } from "@/features/slices/modalSlice";
 import { useGetUserDetails } from "@/Hooks/api/user/useGetUserDetails";
 import { useGetRelationshipStatus } from "@/Hooks/follow/useGetRelationshipStatus";
@@ -44,7 +45,14 @@ const ProfileLayout = () => {
   const isFollowing = relationshipStatus?.relationship === "Following";
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 mt-14 md:ml-40 ">
+    <div className="max-w-5xl mx-auto px-4 py-6 md:mt-0 md:ml-40 relative pb-14">
+      {/* Option menu */}
+      {isCurrentUser && (
+        <div className="absolute top-0 right-0 flex flex-col items-start pl-4 md:hidden">
+          <OptionButton Icon={MenuIcon} label={"Settings"} showLabelOnHover />
+        </div>
+      )}
+
       {/* Top Section */}
       <div className="flex flex-col md:flex-row md:items-center md:gap-12">
         {/* Profile Image */}
