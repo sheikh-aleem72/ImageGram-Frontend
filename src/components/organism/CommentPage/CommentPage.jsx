@@ -39,6 +39,7 @@ function CommentPage() {
 
   // Handle posting a new comment or reply
   async function handleComment() {
+    if (!comment || !postId || !replyTo) return;
     await createCommentMutation({
       content: comment,
       postId: postId,
@@ -84,9 +85,9 @@ function CommentPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full md:w-[70vh] md:mx-auto justify-center bg-white pb-15">
+    <div className="flex flex-col h-screen w-full md:w-[100vh] md:mx-auto justify-center bg-white pb-15">
       {/* ---------- Header ---------- */}
-      <div className="flex items-center justify-between p-3 fixed top-0 w-full md:w-[70vh] border-b bg-white z-10">
+      <div className="flex items-center justify-between p-3 fixed top-0 w-full md:w-[100vh] border-b bg-white z-10">
         <ChevronLeftIcon
           className="w-7 h-7 cursor-pointer"
           onClick={() => navigate(-1)} // navigate back
@@ -143,7 +144,7 @@ function CommentPage() {
       </div>
 
       {/* ---------- Comment Input Box ---------- */}
-      <div className="bottom-12 w-full bg-white border-t p-2 flex items-center space-x-2 relative pt-6">
+      <div className="bottom-12 md:bottom-0 w-full bg-white border-t p-2 flex items-center space-x-2 relative pt-6">
         {/* User Profile */}
         <img
           src={profilePicture}

@@ -9,5 +9,6 @@ export const useGetAllParentComment = (postId) => {
     queryKey: ["comments", postId],
     queryFn: () => getAllParentCommentOfPostRequest({ token, postId }),
     staleTime: 10000,
+    enabled: !!postId && !!token,
   });
 };

@@ -12,6 +12,7 @@ function CommentCard({
   parentUsername,
   onLike,
   isLiked,
+  isAuthor,
 }) {
   const timeAgo = (() => {
     const now = Date.now();
@@ -49,6 +50,7 @@ function CommentCard({
           >
             Reply
           </span>
+          {true && <span></span>}
         </div>
       </div>
       <HeartIcon
