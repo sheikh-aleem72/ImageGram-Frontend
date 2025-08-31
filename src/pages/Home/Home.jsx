@@ -24,7 +24,7 @@ export default function Home() {
         md:h-auto md:min-h-screen md:w-[600px] md:mx-auto md:mt-10
       "
     >
-      {feed.length < 1 ? (
+      {feed?.length < 1 ? (
         <div className="w-full h-auto p-4 flex gap-3 overflow-auto md:ml-20">
           {usersData?.data
             ?.filter((user) => user?._id !== currentUserId)
