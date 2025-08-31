@@ -49,6 +49,8 @@ const CommentPage = lazy(() =>
   import("./components/organism/CommentPage/CommentPage")
 );
 
+const SearchPage = lazy(() => import("./pages/Search/SearchPage"));
+
 export const AppRoutes = () => {
   return (
     <Suspense
@@ -152,6 +154,21 @@ export const AppRoutes = () => {
                 }
               >
                 <CreatePostPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="search"
+            element={
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex justify-center items-center">
+                    <Loader2 className="animate-spin" />
+                  </div>
+                }
+              >
+                <SearchPage />
               </Suspense>
             }
           />
