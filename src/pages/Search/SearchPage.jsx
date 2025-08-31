@@ -42,7 +42,7 @@ function SearchPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center md:items-center md:justify-center py-2 gap-2">
-      <div className="w-full max-w-md flex flex-col h-screen md:h-auto md:rounded-lg md:shadow-md bg-white border">
+      <div className="w-full max-w-md flex flex-col h-auto md:h-auto md:rounded-lg md:shadow-md bg-white border">
         {/* Search Bar */}
         <div className="p-3 border-b">
           <input
