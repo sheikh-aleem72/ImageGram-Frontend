@@ -1,12 +1,71 @@
-# React + Vite
+# 🌐 ImageGram Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ImageGram is a social media web app (Instagram-like) built with the **MERN stack**.  
+This repository contains the **frontend** built with **React.js**, **Tailwind CSS**, and **WebSocket** delivering a modern, responsive, and interactive UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 📱 User-friendly, responsive UI
+- 🔐 Authentication & Authorization (JWT-based)
+- 🖼️ Upload and view images with captions
+- ❤️ Like & comment on posts
+- 🔔 Real-time notifications (via sockets)
+- 🔍 Search & explore users
+- 🎨 Styled with **Tailwind CSS**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **React.js** – Component-based frontend
+- **Redux** – State management
+- **Axios** – API communication
+- **React Router** – Navigation
+- **Tailwind CSS** – Styling
+- **Socket.io-client** – Real-time updates
+
+---
+
+## ⚙️ Installation & Setup
+
+```bash
+# Clone the repository
+git clone [https://github.com/your-username/imagegram-frontend](https://github.com/sheikh-aleem72/ImageGram-Frontend).git
+cd imagegram-frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+
+```
+
+## 📸 Screenshots
+
+### Sign in page
+
+Authentication page for sign in!
+![Signin page](/screenshots/auth.jpg)
+
+### Home page
+
+Home page containing feed
+![Home Page](/screenshots/home.jpg)
+
+### Notifications
+
+Show notifications to user
+![Notifications](/screenshots/notification.jpg)
+
+### Post
+
+Post card showing post
+![Post Card](/screenshots/post.jpg)
+
+### Profile
+
+Profile page of user
+![Profile](/screenshots/profile.jpg)
