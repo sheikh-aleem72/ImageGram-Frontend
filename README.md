@@ -43,6 +43,10 @@ npm start
 
 ```
 
+### Live
+
+Visit ImageGram: [https://imagegram-social.vercel.app](https://imagegram-social.vercel.app)
+
 ## 📸 Screenshots
 
 ### Sign in page
@@ -69,3 +73,8 @@ Post card showing post
 
 Profile page of user
 ![Profile](/screenshots/profile.jpg)
+
+## 🧑‍💻 Author
+
+Developed by **Shekh Aalim**
+Built with ❤️ using React, Vite, and Tailwind CSS.
